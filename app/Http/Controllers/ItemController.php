@@ -11,16 +11,20 @@ class ItemController extends Controller
 {
     use HasFactory;
 
-    public function index () {
-        $item = Item::all();
+    public function index()
+    {
+        $item = Item::paginate(10);
 
-        $nav = 'items';
-        return view('items.index', compact('item', 'nav'));
+        return view('admin.items.index', compact('item'));
     }
 
     public function store (Request $request) {
         
         // Item::create($request->all());
+
+        $date = Carbon::now();
+
+        $date_today = $date->format('Y-m-d');
 
         $item_id = $request->input('item_id');
         $name = $request->input('name');
@@ -30,9 +34,9 @@ class ItemController extends Controller
         $description = $request->input('description');
         $additional_details = $request->input('additional_details');
         $status = $request->input('status');
-        $added_by = 1;
+        $added_by = $date_today;
         $date_acquisition = $request->input('date_acquisition');
-        $date_added = Carbon::today();
+        $date_added = $date_today;
         $csv_file = $request->input('csv_file');
 
 
@@ -58,7 +62,7 @@ class ItemController extends Controller
     public function edit($id) {
         $item = Item::findOrFail($id);
 
-        return view('items.edit', compact('item'));
+        return view('admin.items.edit', compact('item'));
     }
 
     public function update(Request $request, $id) {

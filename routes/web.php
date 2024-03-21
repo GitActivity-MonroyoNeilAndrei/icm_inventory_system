@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -21,7 +23,17 @@ Route::get('/', function () {
 });
 
 
-Route::resource('user', UserController::class);
+Route::resource('admin/user', UserController::class);
+
+
 Route::post('user/change-status/{id}', [UserController::class, 'isActivated'])->name('user.changeStatus');
 
-Route::resource('item', ItemController::class);
+Route::resource('admin/item', ItemController::class);
+
+
+Route::get('admin/login', [AuthController::class, 'login']);
+
+Route::post('admin/login', [AuthController::class, 'authenticate'])->name('login');
+
+Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('admin/dashboard');
+

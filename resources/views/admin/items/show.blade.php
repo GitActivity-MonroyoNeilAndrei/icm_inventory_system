@@ -1,5 +1,5 @@
 <button id="openShowButton{{ $loop->iteration }}" class="px-3 py-1 text-sm bg-green-700 hover:bg-green-600 shadow rounded-md text-slate-50">
-  Show
+  View
 </button>
 
 

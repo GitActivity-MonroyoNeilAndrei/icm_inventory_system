@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('admin.layouts.admin_layout')
  
 @section('body')
 
@@ -18,7 +18,7 @@
 
             <div class="mt-2 w-full">
                 <label class="block text-sm font-medium leading-6 text-gray-900">Item ID:</label>
-                <input name="name" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" value="{{ $item->item_id }}" required>
+                <input name="item_id" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" value="{{ $item->item_id }}" required>
             </div>
 
 

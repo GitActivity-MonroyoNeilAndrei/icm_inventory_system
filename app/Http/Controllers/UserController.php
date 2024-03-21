@@ -12,14 +12,13 @@ class UserController extends Controller
     use HasFactory;
 
     public function index () {
-        $user = User::all();
         $users = User::orderBy('name', 'ASC');
 
         if(request()->has('search')) {
             $users = $users->where('name', 'like', '%'. request()->get('search') .'%');
         }
 
-        return view ('users.index', ['user' => $users->simplePaginate(10), 'nav'=>'user']);
+        return view ('admin.users.index', ['user' => $users->Paginate(10)]);
 
     }
 
@@ -31,7 +30,7 @@ class UserController extends Controller
         $role_option = ['admin'=>'admin', 'user'=>'user'];
         $center_option = ['icm'=>'ICM', 'alabang'=>'Alabang', 'cavite'=>'Cavite', 'taguig'=>'Taguig'];
 
-        return view('users.edit', compact('user', 'position_option', 'department_option', 'role_option', 'center_option'));
+        return view('admin.users.edit', compact('user', 'position_option', 'department_option', 'role_option', 'center_option'));
     }
 
     public function update(Request $request, string $id) {
@@ -41,27 +40,32 @@ class UserController extends Controller
             return redirect()->route('user.index')->with('userUpdated', 'User Updated Successfully');
         } catch (ModelNotFoundException $e) {
 
-            return redirect()->route('user.index')->with('errorNotFound', 'User not Found');
+            return redirect()->route('admin.user.index')->with('errorNotFound', 'User not Found');
         }
     }
 
     public function store (Request $request) {
 
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $position = $request->input('position');
-        $department = $request->input('department');
-        $role = $request->input('role');
-        $center = $request->input('center');
+        $validated = request()->validate([
+            'name' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        // $name = $request->input('name');
+        // $email = $request->input('email');
+        // $position = $request->input('position');
+        // $department = $request->input('department');
+        // $role = $request->input('role');
+        // $center = $request->input('center');
 
         User::create([
-            'name' => $name,
-            'email' => $email,
-            'position' => $position,
-            'department' => $department,
-            'role' => $role,
-            'center' => $center,
-            'password' => bcrypt('password')
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'position' => $request->input('position'),
+            'department' => $request->input('department'),
+            'role' => $request->input('role'),
+            'center' => $request->input('center'),
+            'password' => 'password'
         ]);
 
         return redirect()->back()->with('success', 'User Added Successfully');

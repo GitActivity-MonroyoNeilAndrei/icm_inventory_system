@@ -1,4 +1,4 @@
-@include('popups.popup')
+@include('admin.popups.popup')
 
 
 @if(Session::has('success'))

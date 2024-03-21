@@ -13,12 +13,12 @@
 
     <div class="mt-2 w-full">
       <label class="block text-sm font-medium leading-6 text-gray-900">Name:</label>
-      <input name="name" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" required>
+      <input name="name" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" >
     </div>
 
     <div class="mt-2 w-full">
       <label class="block text-sm font-medium leading-6 text-gray-900">Email:</label>
-      <input name="email" type="email" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" required>
+      <input name="email" type="email" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" >
     </div>
 
     <div class="mt-2 w-full">

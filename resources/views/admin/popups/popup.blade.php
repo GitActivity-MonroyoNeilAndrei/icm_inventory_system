@@ -1,4 +1,4 @@
-<div id="popup" class="border rounded p-4 shadow-xl hidden fixed left-1/2 -translate-x-1/2 top-20" >
+<div id="popup" class="border z-50 rounded p-4 shadow-xl hidden fixed left-1/2 -translate-x-1/2 top-20" >
   <p class="fw-bold text-white" id="popup-message">This is a popup!</p>
 </div>
 
