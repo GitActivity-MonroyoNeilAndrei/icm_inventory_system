@@ -7,7 +7,7 @@
 
 </div>
 
-<div id="myModal" class="fixed z-30 inset-x-0 top-20 overflow-y-auto">
+<div id="myModal" class="fixed z-30 inset-x-0 top-10 overflow-y-auto">
     <form action="{{ route('user.update', $user->id) }}" method="post" class="flex items-center justify-center">
       @csrf
       @method('PUT')
@@ -16,8 +16,13 @@
             <h1 class="font-bold text-2xl text-center text-neutral-800">Edit User</h1>
 
             <div class="mt-2 w-full">
-                <label class="block text-sm font-medium leading-6 text-gray-900">Name:</label>
-                <input name="name" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" value="{{ $user->name }}" required>
+                <label class="block text-sm font-medium leading-6 text-gray-900">First Name:</label>
+                <input name="first_name" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" value="{{ $user->first_name }}" required>
+            </div>
+
+            <div class="mt-2 w-full">
+                <label class="block text-sm font-medium leading-6 text-gray-900">Last Name:</label>
+                <input name="last_name" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" value="{{ $user->last_name }}" required>
             </div>
 
             <div class="mt-2 w-full">
@@ -28,8 +33,8 @@
             <div class="mt-2 w-full">
             <label class="block text-sm font-medium leading-6 text-gray-900">Position:</label>
             <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="position" required>
-                @foreach($position_option as $key => $value)
-                    <option value="{{ $key }}" {{ $key == $user->position ? 'selected' : '' }} > {{ $value }} </option>
+                @foreach($position as $rs)
+                    <option value="{{ $rs->name }}" {{ $rs->name == $user->position ? 'selected' : '' }} > {{ $rs->name }} </option>
                 @endforeach
             </select>
             </div>
@@ -37,8 +42,8 @@
             <div class="mt-2 w-full">
             <label class="block text-sm font-medium leading-6 text-gray-900">Department:</label>
             <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="department" required>
-                @foreach($department_option as $key => $value)
-                    <option value="{{ $key }}" {{ $key == $user->department ? 'selected' : '' }} > {{ $value }} </option>
+                @foreach($department as $rs)
+                    <option value="{{ $rs->name }}" {{ $rs->name == $user->department ? 'selected' : '' }} > {{ $rs->name }} </option>
                 @endforeach
             </select>
             </div>
@@ -46,17 +51,16 @@
             <div class="mt-2 w-full">
             <label class="block text-sm font-medium leading-6 text-gray-900">Role:</label>
             <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="role" required>
-                @foreach($role_option as $key => $value)
-                    <option value="{{ $key }}" {{ $key == $user->role ? 'selected' : '' }} > {{ $value }} </option>
-                @endforeach
+                <option value="admin" {{ 'admin' == $user->role ? 'selected' : '' }} > admin </option>
+                <option value="user" {{ 'user' == $user->role ? 'selected' : '' }} > user </option>
             </select>
             </div>
 
             <div class="mt-2 w-full">
             <label class="block text-sm font-medium leading-6 text-gray-900">Center:</label>
             <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="center" required>
-                @foreach($center_option as $key => $value)
-                    <option value="{{ $key }}" {{ $key == $user->center ? 'selected' : '' }} > {{ $value }} </option>
+                @foreach($center as $rs)
+                    <option value="{{ $rs->name }}" {{ $rs->name == $user->center ? 'selected' : '' }} > {{ $rs->name }} </option>
                 @endforeach
             </select>
             </div>

@@ -14,7 +14,7 @@ class AuthController extends Controller
 
     public function login() 
     {
-        return view('admin.auth.login');
+        return view('auth.login');
     }
 
     public function authenticate() 
@@ -29,10 +29,26 @@ class AuthController extends Controller
         if(auth()->attempt($validated)) {
 
             request()->session()->regenerate();
-            
-            return redirect()->route('admin/dashboard')->with('success', 'Logged in successfully');
+
+            if(auth()->user()->role == 'admin') 
+            {
+                return redirect()->route('admin.dashboard')->with('success', 'Logged in successfully');
+            }
+
+            if (auth()->user()->role == 'user') 
+            {
+                return redirect()->route('user.dashboard')->with('success', 'Logged in successfully');
+            }
         }
 
         return redirect()->back()->with('fail', 'Incorrect Inputs');
+    }
+
+
+    public function logout()
+    {
+        Auth()->logout();
+
+        return redirect()->route('login');
     }
 }

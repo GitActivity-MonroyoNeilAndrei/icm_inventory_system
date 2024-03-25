@@ -6,7 +6,7 @@
 <div id="create-background" class="fixed top-0 left-0 z-20 w-screen h-screen bg-gray-700/50 hidden"></div>
 
 <div id="myCreate" class="fixed z-30 inset-x-0 top-10 hidden">
-  <form action="{{ route('admin.item.store' ) }}" method="POST" class="flex flex-col items-center bg-white mx-auto w-80 rounded-lg shadow-xl pt-4 pb-1 px-8 border border-gray-700 overflow-y-auto" style="max-height: 80vh;">
+  <form action="{{ route('user.item.store' ) }}" method="POST" class="flex flex-col items-center bg-white mx-auto w-80 rounded-lg shadow-xl pt-4 pb-1 px-8 border border-gray-700 overflow-y-auto" style="max-height: 80vh;">
     @csrf
 
     <h1 class="text-2xl font-semibold leading-none">Add Item</h1>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Option;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
@@ -12,25 +13,30 @@ class UserController extends Controller
     use HasFactory;
 
     public function index () {
-        $users = User::orderBy('name', 'ASC');
+        $users = User::orderBy('first_name', 'ASC');
+
+        $category = Option::where('category', 'category')->get();
+        $position = Option::where('category', 'position')->get();
+        $center = Option::where('category', 'center')->get();
+        $department = Option::where('category', 'department')->get();
 
         if(request()->has('search')) {
-            $users = $users->where('name', 'like', '%'. request()->get('search') .'%');
+            $users = $users->where('first_name', 'like', '%'. request()->get('search') .'%');
         }
 
-        return view ('admin.users.index', ['user' => $users->Paginate(10)]);
+        return view ('admin.users.index', ['user' => $users->Paginate(10), 'category' => $category, 'position' => $position, 'center' => $center, 'department' => $department]);
 
     }
 
     public function edit (string $id) {
         $user = User::findOrFail($id);
 
-        $position_option = ['faculty'=>'Faculty', 'lecturer'=>'Lecturer', 'registrar'=>'Registrar'];
-        $department_option = ['registration'=>'Registration Office', 'faculty'=>'Faculty Office', 'technical_support'=>'Technical Support Office'];
-        $role_option = ['admin'=>'admin', 'user'=>'user'];
-        $center_option = ['icm'=>'ICM', 'alabang'=>'Alabang', 'cavite'=>'Cavite', 'taguig'=>'Taguig'];
+        $category = Option::where('category', 'category')->get();
+        $position = Option::where('category', 'position')->get();
+        $center = Option::where('category', 'center')->get();
+        $department = Option::where('category', 'department')->get();
 
-        return view('admin.users.edit', compact('user', 'position_option', 'department_option', 'role_option', 'center_option'));
+        return view('admin.users.edit', compact('user', 'position', 'department', 'category', 'center'));
     }
 
     public function update(Request $request, string $id) {
@@ -46,26 +52,15 @@ class UserController extends Controller
 
     public function store (Request $request) {
 
-        $validated = request()->validate([
-            'name' => 'required',
-            'email' => 'required|email'
-        ]);
-
-        // $name = $request->input('name');
-        // $email = $request->input('email');
-        // $position = $request->input('position');
-        // $department = $request->input('department');
-        // $role = $request->input('role');
-        // $center = $request->input('center');
-
         User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
             'position' => $request->input('position'),
             'department' => $request->input('department'),
             'role' => $request->input('role'),
             'center' => $request->input('center'),
-            'password' => 'password'
+            'password' => 'icmadmin1993'
         ]);
 
         return redirect()->back()->with('success', 'User Added Successfully');

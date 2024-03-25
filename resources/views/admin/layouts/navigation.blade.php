@@ -13,8 +13,8 @@
               </div>
             </div>
             <ul class="mt-10 ">
-                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin/dashboard') ? 'bg-gray-700' : '' }}">
-                    <a href="{{ route('admin/dashboard') }}" class="px-10 py-3  w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.dashboard') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}" class="px-10 py-3  w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                       <img class="w-4" src="{{ asset('images/dashboard-logo.png') }}" alt="">
                       <span class="text-sm ml-2">Dashboard</span>
                     </a>
@@ -25,8 +25,8 @@
                         <span class="text-sm ml-2">User</span>
                     </a>
                 </li>
-                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('item.index') ? 'bg-gray-700' : '' }}">
-                    <a href="{{ route('item.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.item.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('admin.item.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/list-logo.png') }}" alt="">
                         <span class="text-sm ml-2">Items</span>
                     </a>
@@ -36,16 +36,20 @@
 
 
 
-                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ false ? 'bg-gray-700' : '' }}">
-                    <a href="{{ route('item.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <circle cx="12" cy="12" r="3" />
-                        </svg>
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('option.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('option.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                        <img class="w-4" src="{{ asset('images/settings-logo.png') }}" alt="">
                         <span class="text-sm ml-2">Settings</span>
                     </a>
                 </li>
+
+
+                <form action="{{ route('admin.logout') }}" method="post">
+                    @csrf
+                    <button class="hover:bg-gray-700 w-full block py-3 text-center text-slate-300">Logout</button>
+                </form>
+
+
             </ul>
 
         </div>

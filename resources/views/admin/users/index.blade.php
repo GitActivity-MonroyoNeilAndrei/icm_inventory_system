@@ -24,7 +24,8 @@
           <table class="w-full">
             <thead>
               <tr class="border-b border-gray-500">
-                <th class="py-2">Name</th>
+                <th class="py-2">First Name</th>
+                <th class="py-2">Last Name</th>
                 <th class="py-2">Position</th>
                 <th class="py-2">Department</th>
                 <th class="py-2">Role</th>
@@ -39,7 +40,8 @@
               @foreach($user as $rs)
 
                 <tr class="border-b border-gray-500 bg-gray-100 hover:bg-gray-200">
-                  <td class="py-2 pl-2">{{ $rs->name }}</td>
+                  <td class="py-2 pl-2">{{ $rs->first_name }}</td>
+                  <td class="py-2 pl-2">{{ $rs->last_name }}</td>
                   <td class="py-2 pl-2">{{ $rs->position }}</td>
                   <td class="py-2 pl-2">{{ $rs->department }}</td>
                   <td class="py-2 pl-2">{{ $rs->role }}</td>

@@ -15,11 +15,16 @@ class ItemController extends Controller
     {
         $item = Item::paginate(10);
 
-        return view('admin.items.index', compact('item'));
+        if (auth()->user()->role === 'admin') {
+            return view('admin.items.index', compact('item'));
+        } else if (auth()->user()->role === 'user') {
+            return view('user.items.index', compact('item'));
+        }
     }
 
-    public function store (Request $request) {
-        
+    public function store(Request $request)
+    {
+
         // Item::create($request->all());
 
         $date = Carbon::now();
@@ -34,7 +39,7 @@ class ItemController extends Controller
         $description = $request->input('description');
         $additional_details = $request->input('additional_details');
         $status = $request->input('status');
-        $added_by = $date_today;
+        $added_by = 1;
         $date_acquisition = $request->input('date_acquisition');
         $date_added = $date_today;
         $csv_file = $request->input('csv_file');
@@ -56,22 +61,30 @@ class ItemController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Item added Successfully');
-
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $item = Item::findOrFail($id);
 
-        return view('admin.items.edit', compact('item'));
+        if (auth()->user()->role === 'admin') {
+            return view('admin.items.edit', compact('item'));
+        } else if (auth()->user()->role === 'user') {
+            return view('user.items.edit', compact('item'));
+        }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
 
         $item = Item::findOrFail($id);
 
         $item->update($request->all());
 
-        return redirect()->route('item.index')->with('itemUpdated', 'Item Updated Successfully');
-
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.item.index')->with('itemUpdated', 'Item Updated Successfully');
+        } else if (auth()->user()->role === 'user') {
+            return redirect()->route('user.item.index')->with('itemUpdated', 'Item Updated Successfully');
+        }
     }
 }

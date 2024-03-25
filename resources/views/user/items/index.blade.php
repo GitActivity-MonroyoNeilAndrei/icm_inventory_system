@@ -1,8 +1,8 @@
-@extends('admin.layouts.admin_layout')
+@extends('user.layouts.user_layout')
 
 @section('body')
 
-@include('admin.layouts.navigation')
+@include('user.layouts.navigation')
 
 <div class="h-screen pt-3 flex flex-no-wrap px-5 sm:ml-52 max-sm:ml-0">
 
@@ -13,7 +13,7 @@
         </div>
         <h1 class="text-2xl font-bold mb-3">All Items</h1>
 
-        @include('admin.items.create')
+        @include('user.items.create')
 
         <div class="w-full  overflow-x-auto border-gray-300">
           <table class="w-full">
@@ -46,9 +46,9 @@
 
                 <td class="py-2 text-center w-44">
                   
-                  @include('admin.items.show')
+                  @include('user.items.show')
 
-                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('admin.item.edit', $rs->id) }}">Edit</a>
+                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('user.item.edit', $rs->id) }}">Edit</a>
 
 
                 </td>
@@ -67,6 +67,6 @@
     </div>
 </div>
 
-@include('admin.popups.user-popup')
+@include('user.popups.user-popup')
 
 @endsection
