@@ -8,7 +8,7 @@
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <div class="mb-4">
                 <h1 class="text-lg font-bold">Confirmation</h1>
-                <p class="text-gray-600">Are you Sure You Want to change User Status?</p>
+                <p class="text-gray-600">"Could I kindly inquire as to whether you are absolutely certain and completely confident in your desire and intention to proceed with the proposed action of altering the status of the user in question?"</p>
             </div>
             <div class="text-right">
                 <button type="button" id="closeStatusModal{{ $loop->iteration }}" class="px-4 py-1 bg-red-600 text-white rounded hover:bg-red-700 me-3">No</button>

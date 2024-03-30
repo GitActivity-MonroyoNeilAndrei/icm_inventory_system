@@ -6,6 +6,8 @@
   @vite('resources/css/app.css')
   <title>{{ config('app.name') }}</title>
 </head>
+
+
 <body>
 
 @yield('body')

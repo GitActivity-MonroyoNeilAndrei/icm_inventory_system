@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('item_id');
             $table->string('name');
             $table->string('category');
             $table->string('serial_no');
@@ -21,10 +20,10 @@ return new class extends Migration
             $table->string('description');
             $table->string('additional_details');
             $table->string('status');
-            $table->integer('added_by');
+            $table->unsignedBigInteger('added_by');
+            $table->foreign('added_by')->references('id')->on('users')->onDelete('cascade');
             $table->string('date_acquisition');
             $table->string('date_added');
-            $table->string('csv_file');
             $table->timestamps();
         });
     }

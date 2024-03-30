@@ -14,7 +14,7 @@
 
     <div class="mt-2 w-full">
       <label class="block text-md font-bold text-left leading-6 text-gray-900">Item ID:</label>
-      <h1 class="text-sm text-left pl-5">{{ $rs->item_id }}</h2>
+      <h1 class="text-sm text-left pl-5">{{ $rs->id }}</h2>
     </div> 
 
     <div class="mt-2 w-full">
@@ -54,7 +54,7 @@
 
     <div class="mt-2 w-full">
       <label class="block text-md font-bold text-left leading-6 text-gray-900">Added by:</label>
-      <h1 class="text-sm text-left pl-5">{{ $rs->added_by }}</h2>
+      <h1 class="text-sm text-left pl-5">{{ $rs->addedByUser->first_name . ' ' . $rs->addedByUser->last_name }}</h2>
     </div>  
 
     <div class="mt-2 w-full">
@@ -68,12 +68,6 @@
       <h1 class="text-sm text-left pl-5">{{ $rs->date_added }}</h2>
     </div>  
 
-    <div class="mt-2 w-full">
-      <label class="block text-md font-bold text-left leading-6 text-gray-900">CSV File:</label>
-      <h1 class="text-sm text-left pl-5">{{ $rs->csv_file }}</h2>
-    </div>  
-
-  
     <div class="py-5 flex gap-4">
       <button type="button" id="closeShow{{ $loop->iteration }}" class="px-3 py-0.5 bg-red-700 rounded  text-slate-200">Close</button>
     </div>

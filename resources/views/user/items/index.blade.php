@@ -36,7 +36,7 @@
             @foreach($item as $rs)
 
               <tr class="border-b border-gray-500 bg-gray-100 hover:bg-gray-200">
-                <td class="py-2 pl-2">{{ $rs->item_id }}</td>
+                <td class="py-2 pl-2">{{ $rs->id }}</td>
                 <td class="py-2 pl-2">{{ $rs->name }}</td>
                 <td class="py-2 pl-2">{{ $rs->category }}</td>
                 <td class="py-2 pl-2">{{ $rs->model }}</td>

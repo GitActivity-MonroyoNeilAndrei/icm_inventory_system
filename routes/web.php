@@ -32,6 +32,16 @@ Route::get('check', function () {
     return auth()->user();
 });
 
+
+
+
+Route::get('item/import', [App\Http\Controllers\ItemController::class, 'index']);
+Route::post('item/import', [App\Http\Controllers\ItemController::class, 'importExcelData']);
+
+
+
+
+
  
 Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 
@@ -51,6 +61,8 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('option', OptionController::class);
+
+    Route::post('settings/{id}', [UserController::class, 'updateProfile'])->name('admin.settings.update-profile');
 
 });
 

@@ -15,8 +15,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth()->user()->role == 'admin') {
+        if(Auth()->user()->role == 'admin' && Auth()->user()->status === 'activated') {
             return $next($request);
+        } else if (Auth()->user()->status === 'deactivated') {
+            return redirect()->route('login')->with('deactivated', 'This account has been Deactivated');
         }
 
         abort(401);   

@@ -49,9 +49,9 @@
                   <td class="pl-2">
                     
                     @if($rs->status == 'activated')
-                      <div class="size-2 mx-auto rounded-full bg-green-700"></div>
+                      <div class="mx-auto text-sm text-white text-center px-2 rounded-lg bg-green-700">active</div>
                     @else
-                      <div class="size-2 mx-auto rounded-full bg-red-700"></div>
+                      <div class="mx-auto text-sm text-white text-center px-2 rounded-lg bg-red-700">Inactive</div>
                     @endif
 
                   </td>
@@ -80,6 +80,8 @@
         </div>
     </div>
 </div>
+
+
 
 @include('admin.popups.user-popup')
 

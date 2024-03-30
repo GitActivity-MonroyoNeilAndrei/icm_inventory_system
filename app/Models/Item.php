@@ -10,7 +10,6 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'item_id',
         'name',
         'category',
         'serial_no',
@@ -20,7 +19,11 @@ class Item extends Model
         'status',
         'added_by',
         'date_acquisition',
-        'date_added',
-        'csv_file'
+        'date_added'
     ];
+
+    public function addedByUser()
+    {
+        return $this->belongsTo(User::class, 'added_by');
+    }
 }

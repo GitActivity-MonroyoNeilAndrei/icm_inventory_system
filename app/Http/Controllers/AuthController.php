@@ -30,6 +30,10 @@ class AuthController extends Controller
 
             request()->session()->regenerate();
 
+            if(auth()->user()->status == 'deactivated') {
+                return redirect()->back()->with('deactivated', 'This account has been Deactivated');
+            }
+
             if(auth()->user()->role == 'admin') 
             {
                 return redirect()->route('admin.dashboard')->with('success', 'Logged in successfully');

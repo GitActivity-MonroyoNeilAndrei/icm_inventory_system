@@ -1,4 +1,4 @@
-<button id="openCreateButton" class="bg-blue-600 hover:bg-blue-500 px-5 py-1 mb-3 rounded text-slate-200 shadow">
+<button id="openCreateButton" class="bg-green-600 hover:bg-green-700 px-4 py-0.5 mb-3 rounded text-md text-slate-200 shadow col-span-2 mx-auto">
   Add Option
 </button>
 

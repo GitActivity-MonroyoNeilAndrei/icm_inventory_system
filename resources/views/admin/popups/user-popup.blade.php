@@ -25,4 +25,10 @@
     <script>
         openPopup("{{ Session::get('errorNotFound') }}", "success");
     </script>
+@elseif ($errors->any())
+    @foreach($errors->all() as $error)
+    <script>  
+        openPopup("{{ $error }}", "warning");
+    </script>
+    @endforeach
 @endif

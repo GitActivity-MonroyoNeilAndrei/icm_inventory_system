@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Option;
 use Illuminate\Support\Carbon;
+
+use App\Imports\ItemImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ItemController extends Controller
 {
@@ -13,12 +18,14 @@ class ItemController extends Controller
 
     public function index()
     {
-        $item = Item::paginate(10);
+        $item = Item::with('addedByUser')->paginate(10);
+
+        $category = Option::where('category', 'Category')->get();
 
         if (auth()->user()->role === 'admin') {
-            return view('admin.items.index', compact('item'));
+            return view('admin.items.index', compact('item', 'category'));
         } else if (auth()->user()->role === 'user') {
-            return view('user.items.index', compact('item'));
+            return view('user.items.index', compact('item', 'category'));
         }
     }
 
@@ -31,7 +38,6 @@ class ItemController extends Controller
 
         $date_today = $date->format('Y-m-d');
 
-        $item_id = $request->input('item_id');
         $name = $request->input('name');
         $category = $request->input('category');
         $serial_no = $request->input('serial_no');
@@ -42,11 +48,9 @@ class ItemController extends Controller
         $added_by = 1;
         $date_acquisition = $request->input('date_acquisition');
         $date_added = $date_today;
-        $csv_file = $request->input('csv_file');
 
 
         Item::create([
-            'item_id' => $item_id,
             'name' => $name,
             'category' => $category,
             'serial_no' => $serial_no,
@@ -57,7 +61,6 @@ class ItemController extends Controller
             'added_by' => $added_by,
             'date_acquisition' => $date_acquisition,
             'date_added' => $date_added,
-            'csv_file' => $csv_file
         ]);
 
         return redirect()->back()->with('success', 'Item added Successfully');
@@ -86,5 +89,19 @@ class ItemController extends Controller
         } else if (auth()->user()->role === 'user') {
             return redirect()->route('user.item.index')->with('itemUpdated', 'Item Updated Successfully');
         }
+    }
+
+    public function importExcelData(Request $request)
+    {
+        $request->validate([
+            'import_file' => [
+                'required',
+                'file'
+            ],
+        ]);
+
+        Excel::import(new ItemImport, $request->file('import_file'));
+
+        return redirect()->back()->with('status', 'Imported Successfully');
     }
 }

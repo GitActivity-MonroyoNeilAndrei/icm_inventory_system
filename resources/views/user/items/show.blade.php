@@ -10,11 +10,9 @@
 
     <h1 class="text-3xl font-semibold leading-none">Item Details</h1>
 
-
-
     <div class="mt-2 w-full">
       <label class="block text-md font-bold text-left leading-6 text-gray-900">Item ID:</label>
-      <h1 class="text-sm text-left pl-5">{{ $rs->item_id }}</h2>
+      <h1 class="text-sm text-left pl-5">{{ $rs->id }}</h2>
     </div> 
 
     <div class="mt-2 w-full">
@@ -66,11 +64,6 @@
     <div class="mt-2 w-full">
       <label class="block text-md font-bold text-left leading-6 text-gray-900">Date Added:</label>
       <h1 class="text-sm text-left pl-5">{{ $rs->date_added }}</h2>
-    </div>  
-
-    <div class="mt-2 w-full">
-      <label class="block text-md font-bold text-left leading-6 text-gray-900">CSV File:</label>
-      <h1 class="text-sm text-left pl-5">{{ $rs->csv_file }}</h2>
     </div>  
 
   

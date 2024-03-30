@@ -40,30 +40,45 @@ class UserController extends Controller
     }
 
     public function update(Request $request, string $id) {
-        try {
-            $user = User::findOrFail($id);
-            $user->update($request->all());
-            return redirect()->route('user.index')->with('userUpdated', 'User Updated Successfully');
-        } catch (ModelNotFoundException $e) {
 
-            return redirect()->route('admin.user.index')->with('errorNotFound', 'User not Found');
+        $existingUser = User::where('first_name', $request->input('first_name'))->where('last_name', $request->input('last_name'))->first();
+
+        if($existingUser) {
+            return redirect()->back()->with('failed', 'User Already Exist');
+        } else {
+            try {
+                $user = User::findOrFail($id);
+                $user->update($request->all());
+                return redirect()->route('user.index')->with('userUpdated', 'User Updated Successfully');
+            } catch (ModelNotFoundException $e) {
+
+                return redirect()->route('admin.user.index')->with('errorNotFound', 'User not Found');
+            }
         }
     }
 
     public function store (Request $request) {
 
-        User::create([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'position' => $request->input('position'),
-            'department' => $request->input('department'),
-            'role' => $request->input('role'),
-            'center' => $request->input('center'),
-            'password' => 'icmadmin1993'
-        ]);
+        $existingUser = User::where('first_name', $request->input('first_name'))->where('last_name', $request->input('last_name'))->first();
 
-        return redirect()->back()->with('success', 'User Added Successfully');
+        if($existingUser) {
+            return redirect()->back()->with('failed', 'User Already Exist');
+        } else {
+            User::create([
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'email' => $request->input('email'),
+                'position' => $request->input('position'),
+                'department' => $request->input('department'),
+                'role' => $request->input('role'),
+                'center' => $request->input('center'),
+                'password' => 'icmadmin1993'
+            ]);
+
+            return redirect()->back()->with('success', 'User Added Successfully');
+        }
+
+
     }
 
     public function isActivated(string $id) {
@@ -75,4 +90,24 @@ class UserController extends Controller
 
         return redirect()->back()->with('statusChanged', 'User Status Changed');
     }
+
+
+
+    public function updateProfile(Request $request, string $id) {
+        try {
+            $user = User::findOrFail($id);
+            $user->update([
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'email' => $request->input('email'),
+
+            ]);
+            return redirect()->back()->with('profileUpdated', 'User Updated Successfully');
+
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()->back()->with('errorNotFound', 'User not Found');
+        }
+    }
+    
 }

@@ -13,7 +13,12 @@
         </div>
         <h1 class="text-2xl font-bold mb-3">All Items</h1>
 
-        @include('admin.items.create')
+        <div class="flex justify-between">
+          @include('admin.items.create')
+
+          @include('admin.items.import-excel')
+        </div>
+
 
         <div class="w-full  overflow-x-auto border-gray-300">
           <table class="w-full">
@@ -36,7 +41,7 @@
             @foreach($item as $rs)
 
               <tr class="border-b border-gray-500 bg-gray-100 hover:bg-gray-200">
-                <td class="py-2 pl-2">{{ $rs->item_id }}</td>
+                <td class="py-2 pl-2">{{ $rs->id }}</td>
                 <td class="py-2 pl-2">{{ $rs->name }}</td>
                 <td class="py-2 pl-2">{{ $rs->category }}</td>
                 <td class="py-2 pl-2">{{ $rs->model }}</td>
@@ -49,7 +54,6 @@
                   @include('admin.items.show')
 
                   <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('admin.item.edit', $rs->id) }}">Edit</a>
-
 
                 </td>
               </tr>
@@ -64,6 +68,17 @@
 
           </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
     </div>
 </div>
 
