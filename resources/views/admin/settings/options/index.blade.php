@@ -1,4 +1,4 @@
-<div class="border border-gray-700 bg-gray-200 shadow-xl rounded-lg">
+<div class="border border-gray-700 bg-gray-50 shadow-xl rounded-lg">
   <div class="grid grid-cols-2 gap-10 px-8 pt-8">
 
     <div>

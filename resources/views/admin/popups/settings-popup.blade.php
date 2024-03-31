@@ -17,6 +17,14 @@
 <script>
     openPopup("{{ Session::get('errorNotFound') }}", "warning");
 </script>
+@elseif(Session::has('passwordMismatch'))
+<script>
+    openPopup("{{ Session::get('passwordMismatch') }}", "warning");
+</script>
+@elseif(Session::has('passwordChanged'))
+<script>
+    openPopup("{{ Session::get('passwordChanged') }}", "success");
+</script>
 @elseif ($errors->any())
     @foreach($errors->all() as $error)
     <script>  

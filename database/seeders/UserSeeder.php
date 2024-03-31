@@ -16,15 +16,17 @@ class UserSeeder extends Seeder
     {
 
 
-        User::create([
-            'first_name' => 'Neil Andrei',
-            'last_name' => 'Monroyo',
-            'email' => 'andreimonroyo0@gmail.com',
-            'position' => 'Assistant Head',
-            'department' => 'Systems Support',
-            'role' => 'admin',
-            'center' => 'Informatics College Manila',
-            'password' => 'icmadmin1993'
-        ]);
+        // User::create([
+        //     'first_name' => 'Neil Andrei',
+        //     'last_name' => 'Monroyo',
+        //     'email' => 'andreimonroyo0@gmail.com',
+        //     'position' => 'Assistant Head',
+        //     'department' => 'Systems Support',
+        //     'role' => 'admin',
+        //     'center' => 'Informatics College Manila',
+        //     'password' => 'icmadmin1993'
+        // ]);
+
+        \App\Models\User::factory(50)->create();
     }
 }

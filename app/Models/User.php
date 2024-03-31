@@ -25,6 +25,7 @@ class User extends Authenticatable
         'role',
         'center',
         'status',
+        'password_changed',
         'email',
         'password',
     ];

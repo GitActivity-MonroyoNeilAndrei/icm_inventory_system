@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Option;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -109,5 +111,55 @@ class UserController extends Controller
             return redirect()->back()->with('errorNotFound', 'User not Found');
         }
     }
+
+    public function updateProfilePassword(Request $request, string $id) {
+
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if(!Hash::check($request->input('current_password'), $user->password)) {
+            return redirect()->back()->with('passwordMismatch', 'Incorrect Current Password');
+        }
+
+        $user->update([
+            'password' => $request->input('password_confirmation'),
+        ]);
+
+        return redirect()->back()->with('passwordChanged', 'Password Updated');
+    }
+
+    public function changePassword(string $id) {
+        $user = User::findOrFail($id);
+
+        return view('auth.change-password', compact('user'));
+    }
     
+    public function updatePassword(Request $request, string $id) {
+
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'password' => $request->input('password_confirmation'),
+            'password_changed' => 1,
+        ]);
+
+        if(auth()->user()->role == 'admin') 
+        {
+            return redirect()->route('admin.dashboard')->with('success', 'Logged in successfully');
+        } else if(auth()->user()->role == 'user') 
+        {
+            return redirect()->route('user.dashboard')->with('success', 'Logged in successfully');
+        }
+
+        
+    }
 }

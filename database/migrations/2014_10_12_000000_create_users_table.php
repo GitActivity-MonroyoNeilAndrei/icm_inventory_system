@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('role');
             $table->string('center');
             $table->string('status')->default('activated');
+            $table->boolean('password_changed')->default(false);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

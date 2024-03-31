@@ -32,15 +32,13 @@ Route::get('check', function () {
     return auth()->user();
 });
 
+Route::get('user/change-password/{id}', [UserController::class, 'changePassword'])->name('changePassword');
+Route::post('user/update-password/{id}', [UserController::class, 'updatePassword'])->name('updatePassword');
 
 
 
 Route::get('item/import', [App\Http\Controllers\ItemController::class, 'index']);
 Route::post('item/import', [App\Http\Controllers\ItemController::class, 'importExcelData']);
-
-
-
-
 
  
 Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
@@ -63,6 +61,9 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
     Route::resource('option', OptionController::class);
 
     Route::post('settings/{id}', [UserController::class, 'updateProfile'])->name('admin.settings.update-profile');
+
+    Route::post('settings/update-password/{id}', [UserController::class, 'updateProfilePassword'])->name('admin.updateProfilePassword');
+
 
 });
 

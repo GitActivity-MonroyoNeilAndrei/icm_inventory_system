@@ -30,17 +30,31 @@ class AuthController extends Controller
 
             request()->session()->regenerate();
 
+            $changePassword = auth()->user()->changePassword;
+            $userId = auth()->user()->id;
+
+
             if(auth()->user()->status == 'deactivated') {
                 return redirect()->back()->with('deactivated', 'This account has been Deactivated');
             }
 
             if(auth()->user()->role == 'admin') 
             {
+                
+                if($changePassword === 0) {
+                    return redirect()->route('changePassword', $userId);
+                }
+
                 return redirect()->route('admin.dashboard')->with('success', 'Logged in successfully');
             }
 
             if (auth()->user()->role == 'user') 
             {
+
+                if($changePassword === 0) {
+                    return redirect()->route('changePassword', $userId);
+                }
+
                 return redirect()->route('user.dashboard')->with('success', 'Logged in successfully');
             }
         }

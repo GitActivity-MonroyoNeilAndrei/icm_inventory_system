@@ -96,7 +96,8 @@ class ItemController extends Controller
         $request->validate([
             'import_file' => [
                 'required',
-                'file'
+                'file',
+                'mimes:xlsx,xls,csv',
             ],
         ]);
 

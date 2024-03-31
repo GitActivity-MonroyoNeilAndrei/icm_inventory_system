@@ -4,7 +4,7 @@
 
 @include('admin.layouts.navigation')
 
-<div class="h-screen pt-3 flex flex-no-wrap px-5 sm:ml-52 max-sm:ml-0">
+<div class="min-h-screen py-3 flex flex-no-wrap px-5 sm:ml-52 max-sm:ml-0 bg-gray-200">
 
     <div class="container mx-auto">
 
