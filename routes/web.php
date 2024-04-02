@@ -29,6 +29,8 @@ Route::get('login', [AuthController::class, 'login']);
     
 Route::post('login', [AuthController::class, 'authenticate'])->name('login');
 
+Route::get('login', [AuthController::class, 'login'])->middleware('guest');
+
 Route::get('check', function () {
     return auth()->user();
 });
