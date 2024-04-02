@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('position');
             $table->string('department');
             $table->string('role');
-            $table->string('center');
+            $table->string('campus');
             $table->string('status')->default('activated');
             $table->boolean('password_changed')->default(false);
             $table->string('email')->unique();

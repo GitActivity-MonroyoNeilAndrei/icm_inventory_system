@@ -12,10 +12,12 @@ class OptionController extends Controller
         $role = Option::where('category', 'role')->orderBy('name', 'ASC')->get();
         $position = Option::where('category', 'position')->orderBy('name', 'ASC')->get();
         $department = Option::where('category', 'department')->orderBy('name', 'ASC')->get();
-        $center = Option::where('category', 'center')->orderBy('name', 'ASC')->get();
+        $campus = Option::where('category', 'campus')->orderBy('name', 'ASC')->get();
         $category = Option::where('category', 'category')->orderBy('name', 'ASC')->get();
+        $status = Option::where('category', 'status')->orderBy('name', 'ASC')->get();
 
-        return view('admin.settings.index', compact('role', 'position', 'department', 'center', 'category'));
+
+        return view('admin.settings.index', compact('role', 'position', 'department', 'campus', 'category', 'status'));
     }
 
     public function show () {

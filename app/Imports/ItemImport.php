@@ -18,12 +18,17 @@ class ItemImport implements ToCollection
 
     public function collection(Collection $rows)
     {
-
-        $date = Carbon::now();
-
-        $date_today = $date->format('Y-m-d');
-
+        $date_today = now()->format('Y-m-d');
+    
+        $firstRowSkipped = false;
+    
         foreach ($rows as $row) {
+            // Skip the first row
+            if (!$firstRowSkipped) {
+                $firstRowSkipped = true;
+                continue;
+            }
+    
             Item::create([
                 'name' => $row[0],
                 'category' => $row[1],

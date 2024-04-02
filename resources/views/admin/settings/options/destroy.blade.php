@@ -8,7 +8,7 @@
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <div class="mb-4">
                 <h1 class="text-lg font-bold">Confirmation</h1>
-                <p class="text-gray-600">"Do you find yourself in a state of complete certainty and unwavering resolve as you contemplate the deliberate and irreversible course of action involving the permanent deletion and elimination of this specific option from the roster of available choices or selections?"</p>
+                <p class="text-gray-600">"Are you Sure you Want to Delete this Option?"</p>
             </div>
             <div class="text-right">
                 <button type="button" id="closeDeleteModal{{ $rs->id }}" class="px-4 py-1 bg-red-600 text-white rounded hover:bg-red-700 me-3">No</button>

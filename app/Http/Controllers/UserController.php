@@ -19,14 +19,16 @@ class UserController extends Controller
 
         $category = Option::where('category', 'category')->get();
         $position = Option::where('category', 'position')->get();
-        $center = Option::where('category', 'center')->get();
+        $campus = Option::where('category', 'campus')->get();
         $department = Option::where('category', 'department')->get();
 
+        $search = request()->get('search');
+
         if(request()->has('search')) {
-            $users = $users->where('first_name', 'like', '%'. request()->get('search') .'%');
+            $users = $users->where('first_name', 'like', '%'. $search .'%')->orWhere('last_name', 'like', '%' . $search . '%');
         }
 
-        return view ('admin.users.index', ['user' => $users->Paginate(10), 'category' => $category, 'position' => $position, 'center' => $center, 'department' => $department]);
+        return view ('admin.users.index', ['user' => $users->Paginate(10), 'category' => $category, 'position' => $position, 'campus' => $campus, 'department' => $department]);
 
     }
 
@@ -35,10 +37,10 @@ class UserController extends Controller
 
         $category = Option::where('category', 'category')->get();
         $position = Option::where('category', 'position')->get();
-        $center = Option::where('category', 'center')->get();
+        $campus = Option::where('category', 'campus')->get();
         $department = Option::where('category', 'department')->get();
 
-        return view('admin.users.edit', compact('user', 'position', 'department', 'category', 'center'));
+        return view('admin.users.edit', compact('user', 'position', 'department', 'category', 'campus'));
     }
 
     public function update(Request $request, string $id) {
@@ -73,7 +75,7 @@ class UserController extends Controller
                 'position' => $request->input('position'),
                 'department' => $request->input('department'),
                 'role' => $request->input('role'),
-                'center' => $request->input('center'),
+                'campus' => $request->input('campus'),
                 'password' => 'icmadmin1993'
             ]);
 

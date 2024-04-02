@@ -16,10 +16,11 @@ class Item extends Model
         'model',
         'description',
         'additional_details',
-        'status',
         'added_by',
+        'status',
         'date_acquisition',
-        'date_added'
+        'date_added',
+        'barcode'
     ];
 
     public function addedByUser()

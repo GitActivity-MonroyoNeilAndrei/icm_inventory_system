@@ -15,15 +15,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('category');
-            $table->string('serial_no');
-            $table->string('model');
-            $table->string('description');
+            $table->string('serial_no')->nullable();
+            $table->string('model')->nullable();
+            $table->string('description')->nullable();
             $table->string('additional_details');
-            $table->string('status');
+            $table->boolean('issued')->deafult(false);
+
             $table->unsignedBigInteger('added_by');
+
             $table->foreign('added_by')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('status')->nullable();
             $table->string('date_acquisition');
             $table->string('date_added');
+            $table->string('barcode')->nullable();
             $table->timestamps();
         });
     }

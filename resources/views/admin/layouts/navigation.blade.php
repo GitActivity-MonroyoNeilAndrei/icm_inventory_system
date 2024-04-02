@@ -22,7 +22,7 @@
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('user.index') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('user.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/users-logo.png') }}" alt="">
-                        <span class="text-sm ml-2">User</span>
+                        <span class="text-sm ml-2">Users</span>
                     </a>
                 </li>
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.item.index') ? 'bg-gray-700' : '' }}">
@@ -31,11 +31,14 @@
                         <span class="text-sm ml-2">Items</span>
                     </a>
                 </li>
+
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('transaction.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('transaction.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                        <img class="w-4" src="{{ asset('images/transaction-logo.png') }}" alt="">
+                        <span class="text-sm ml-2">Transactions</span>
+                    </a>
+                </li>
               
-
-
-
-
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('option.index') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('option.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/settings-logo.png') }}" alt="">
@@ -48,8 +51,8 @@
 
         </div>
         <div class="border-t border-gray-700 ">
-            <ul class="w-full text-center text-gray-300 py-1">
-                @Copyright
+            <ul class="w-full text-center text-sm text-gray-300 py-1">
+                @Copyright - Informatics
             </ul>
         </div>
     </div>
@@ -94,7 +97,7 @@
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('user.index') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('user.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/users-logo.png') }}" alt="">
-                        <span class="text-sm ml-2">User</span>
+                        <span class="text-sm ml-2">Users</span>
                     </a>
                 </li>
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.item.index') ? 'bg-gray-700' : '' }}">
@@ -104,8 +107,12 @@
                     </a>
                 </li>
               
-
-
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('transaction.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('transaction.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                        <img class="w-4" src="{{ asset('images/transaction-logo.png') }}" alt="">
+                        <span class="text-sm ml-2">Transactions</span>
+                    </a>
+                </li>
 
 
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('option.index') ? 'bg-gray-700' : '' }}">
@@ -120,8 +127,8 @@
             </div>
         </div>
         <div class="border-t border-gray-700 ">
-            <ul class="w-full text-center text-gray-300 py-1">
-                @Copyright
+            <ul class="w-full text-center text-sm text-gray-300 py-1">
+                @Copyright - Infotmatics
             </ul>
         </div>
     </div>

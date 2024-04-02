@@ -59,7 +59,7 @@
             <div class="mt-2 w-full">
             <label class="block text-sm font-medium leading-6 text-gray-900">Center:</label>
             <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="center" required>
-                @foreach($center as $rs)
+                @foreach($campus as $rs)
                     <option value="{{ $rs->name }}" {{ $rs->name == $user->center ? 'selected' : '' }} > {{ $rs->name }} </option>
                 @endforeach
             </select>

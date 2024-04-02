@@ -29,7 +29,7 @@
                 <th class="py-2">Position</th>
                 <th class="py-2">Department</th>
                 <th class="py-2">Role</th>
-                <th class="py-2">Center</th>
+                <th class="py-2">Campus</th>
                 <th class="py-2">Status</th>
                 <th class="py-2 w-44">Actions</th>
               </tr>
@@ -45,7 +45,7 @@
                   <td class="py-2 pl-2">{{ $rs->position }}</td>
                   <td class="py-2 pl-2">{{ $rs->department }}</td>
                   <td class="py-2 pl-2">{{ $rs->role }}</td>
-                  <td class="py-2 pl-2">{{ $rs->center }}</td>
+                  <td class="py-2 pl-2">{{ $rs->campus }}</td>
                   <td class="pl-2">
                     
                     @if($rs->status == 'activated')

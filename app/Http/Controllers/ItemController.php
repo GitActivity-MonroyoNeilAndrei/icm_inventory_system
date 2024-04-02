@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Option;
 use Illuminate\Support\Carbon;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 use App\Imports\ItemImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,14 +19,22 @@ class ItemController extends Controller
 
     public function index()
     {
-        $item = Item::with('addedByUser')->paginate(10);
+        // $item = Item::with('addedByUser')->paginate(10);
+        $item = Item::orderBy('name', 'ASC');
+
 
         $category = Option::where('category', 'Category')->get();
 
+        $search = request()->get('search');
+
+        if(request()->has('search')) {
+            $item = $item->where('name', 'like', '%'. $search .'%');
+        }
+
         if (auth()->user()->role === 'admin') {
-            return view('admin.items.index', compact('item', 'category'));
+            return view('admin.items.index', ['item' => $item->paginate(10), 'category' => $category]);
         } else if (auth()->user()->role === 'user') {
-            return view('user.items.index', compact('item', 'category'));
+            return view('user.items.index', ['item' => $item->paginate(10), 'category' => $category]);
         }
     }
 
@@ -50,7 +59,7 @@ class ItemController extends Controller
         $date_added = $date_today;
 
 
-        Item::create([
+        $item = Item::create([
             'name' => $name,
             'category' => $category,
             'serial_no' => $serial_no,
@@ -62,6 +71,7 @@ class ItemController extends Controller
             'date_acquisition' => $date_acquisition,
             'date_added' => $date_added,
         ]);
+
 
         return redirect()->back()->with('success', 'Item added Successfully');
     }
@@ -97,7 +107,7 @@ class ItemController extends Controller
             'import_file' => [
                 'required',
                 'file',
-                'mimes:xlsx,xls,csv',
+                'mimes:xlsx,xls,csv,txt',
             ],
         ]);
 
@@ -105,4 +115,6 @@ class ItemController extends Controller
 
         return redirect()->back()->with('status', 'Imported Successfully');
     }
+
+
 }

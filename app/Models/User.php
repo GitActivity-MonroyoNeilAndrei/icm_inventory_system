@@ -23,7 +23,7 @@ class User extends Authenticatable
         'position',
         'department',
         'role',
-        'center',
+        'campus',
         'status',
         'password_changed',
         'email',

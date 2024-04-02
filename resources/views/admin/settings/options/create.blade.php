@@ -23,7 +23,8 @@
         <option value="Category">Category</option>
         <option value="Position">Position</option>
         <option value="Department">Department</option>
-        <option value="Center">Center</option>
+        <option value="Campus">Campus</option>
+        <option value="Status">Status</option>
 
       </select>
     </div>

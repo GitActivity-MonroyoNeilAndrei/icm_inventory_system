@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\TransactionController;
 
 
 /*
@@ -63,6 +64,8 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
     Route::post('settings/{id}', [UserController::class, 'updateProfile'])->name('admin.settings.update-profile');
 
     Route::post('settings/update-password/{id}', [UserController::class, 'updateProfilePassword'])->name('admin.updateProfilePassword');
+
+    Route::resource('transaction', TransactionController::class);
 
 
 });

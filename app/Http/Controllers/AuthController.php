@@ -30,7 +30,7 @@ class AuthController extends Controller
 
             request()->session()->regenerate();
 
-            $changePassword = auth()->user()->changePassword;
+            $changePassword = auth()->user()->password_changed;
             $userId = auth()->user()->id;
 
 

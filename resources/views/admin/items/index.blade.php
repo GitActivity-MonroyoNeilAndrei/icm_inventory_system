@@ -16,10 +16,16 @@
         <div class="flex justify-between">
           @include('admin.items.create')
 
+          @include('admin.items.search-item')
+
           @include('admin.items.import-excel')
         </div>
 
+        @foreach($errors->all() as $error)
 
+            <div class="bg-red-700 p-4">{{ $error }}</div>
+
+        @endforeach
         <div class="w-full  overflow-x-auto border-gray-300">
           <table class="w-full">
             <thead>
@@ -28,7 +34,6 @@
                 <th class="py-2">Name</th>
                 <th class="py-2">Category</th>
                 <th class="py-2">Model</th>
-                <th class="py-2">Description</th>
                 <th class="py-2">Status</th>
                 <th class="py-2">Date Acquisition</th>
 
@@ -45,7 +50,6 @@
                 <td class="py-2 pl-2">{{ $rs->name }}</td>
                 <td class="py-2 pl-2">{{ $rs->category }}</td>
                 <td class="py-2 pl-2">{{ $rs->model }}</td>
-                <td class="py-2 pl-2">{{ $rs->description }}</td>
                 <td class="py-2 pl-2">{{ $rs->status }}</td>
                 <td class="py-2 pl-2">{{ $rs->date_acquisition }}</td>
 
