@@ -10,7 +10,13 @@
 
     <h1 class="text-3xl font-bold leading-none">LOGIN</h1>
 
-    @if(Session::has('fail'))
+    @if(Session::has('deactivated'))
+    <div class="w-full p-3 mt-3 rounded shadow text-white font-semibold bg-red-600">
+      <span>
+        {{ Session::get('deactivated') }}
+      </span>
+    </div>
+    @elseif(Session::has('fail'))
     <div class="w-full p-3 mt-3 rounded shadow text-white font-semibold bg-red-600">
       <span>
         {{ Session::get('fail') }}

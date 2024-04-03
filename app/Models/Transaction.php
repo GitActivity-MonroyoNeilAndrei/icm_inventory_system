@@ -14,7 +14,8 @@ class Transaction extends Model
         'issued_to',
         'issued_by',
         'transaction_type',
-        'status'
+        'status',
+        'condition'
     ];
 
 
@@ -32,4 +33,5 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'issued_by');
     }
+
 }

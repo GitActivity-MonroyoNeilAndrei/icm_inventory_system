@@ -13,18 +13,26 @@
       @method('PUT')
         <div class="bg-white p-6 rounded-lg shadow-lg w-80 overflow-y-auto" style="max-height: 85vh;">
 
-            <h1 class="font-bold text-2xl text-center text-neutral-800">Edit Transaction</h1>
+      <h1 class="font-bold text-2xl text-center text-neutral-800">Edit Transaction</h1>
 
-            <div class="mt-2 w-full">
-      <label class="block text-sm font-medium leading-6 text-gray-900">Issued To:</label>
-      <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="issued_to" required>
-      @foreach($user as $rs)
-          @if($rs->role != 'admin')
-          <option value="{{ $rs->id }}" {{ $rs->id == $transaction->issued_to ? 'selected' : '' }}>{{ $rs->first_name . ' ' . $rs->last_name }}</option>
-          @endif
-        @endforeach
-      </select>
-    </div>
+      <div class="mt-2 w-full">
+        <label class="block text-sm font-medium leading-6 text-gray-900">Transaction Type:</label>
+        <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="status" required>
+          <option value="assigned" {{ 'assigned' == $transaction->status ? 'selected' : '' }}>assigned</option>
+          <option value="unassigned" {{ 'unassigned' == $transaction->status ? 'selected' : '' }}>unassigned</option>
+        </select>
+      </div>
+
+      <div class="mt-2 w-full">
+        <label class="block text-sm font-medium leading-6 text-gray-900">Issued To:</label>
+        <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="issued_to" required>
+        @foreach($user as $rs)
+            @if($rs->role != 'admin')
+            <option value="{{ $rs->id }}" {{ $rs->id == $transaction->issued_to ? 'selected' : '' }}>{{ $rs->first_name . ' ' . $rs->last_name }}</option>
+            @endif
+          @endforeach
+        </select>
+      </div>
 
     <div class="mt-2 w-full">
       <label class="block text-sm font-medium leading-6 text-gray-900">Issued By:</label>
@@ -32,14 +40,6 @@
 
           <option value="{{ auth()->user()->id }}">{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</option>
 
-      </select>
-    </div>
-
-    <div class="mt-2 w-full">
-      <label class="block text-sm font-medium leading-6 text-gray-900">Transaction Type:</label>
-      <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="transaction_type" required>
-        <option value="give" {{ 'give' == $transaction->transaction_type ? 'selected' : '' }}>give</option>
-        <option value="return" {{ 'return' == $transaction->transaction_type ? 'selected' : '' }}>return</option>
       </select>
     </div>
 
@@ -53,11 +53,12 @@
     </div>
 
     <div class="mt-2 w-full">
-      <label class="block text-sm font-medium leading-6 text-gray-900">Status:</label>
-      <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="status" required>
-        @foreach($status as $rs)
-          <option value="{{ $rs->name }}" {{ $rs->name == $transaction->status ? 'selected' : '' }}>{{ $rs->name }}</option>
-        @endforeach
+      <label class="block text-sm font-medium leading-6 text-gray-900">Condition:</label>
+      <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="condition" required>
+        <option value="new">new</option>
+        <option value="operational/working">operational/working</option>
+        <option value="condemn">condemn</option>
+        <option value="for repair">for repair</option>
       </select>
     </div>
 

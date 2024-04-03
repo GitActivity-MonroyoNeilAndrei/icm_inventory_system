@@ -33,9 +33,11 @@ class AuthController extends Controller
             $changePassword = auth()->user()->password_changed;
             $userId = auth()->user()->id;
 
-
             if(auth()->user()->status == 'deactivated') {
-                return redirect()->back()->with('deactivated', 'This account has been Deactivated');
+
+                Auth()->logout();
+                return redirect()->route('login')->with('fail', 'User has been Deactivate');
+
             }
 
             if(auth()->user()->role == 'admin') 

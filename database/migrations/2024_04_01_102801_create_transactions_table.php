@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->date('transaction_date')->default(now());
 
             $table->unsignedBigInteger('item');
             $table->unsignedBigInteger('issued_to');
@@ -22,9 +23,10 @@ return new class extends Migration
             $table->foreign('issued_to')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('issued_by')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('transaction_type');
-
             $table->string('status');
+
+            $table->string('condition');
+
 
             $table->timestamps();
         });

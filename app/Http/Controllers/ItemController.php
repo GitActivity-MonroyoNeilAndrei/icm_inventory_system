@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Option;
+use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 
@@ -21,6 +22,7 @@ class ItemController extends Controller
     {
         // $item = Item::with('addedByUser')->paginate(10);
         $item = Item::orderBy('name', 'ASC');
+        $transaction = Transaction::all();
 
 
         $category = Option::where('category', 'Category')->get();
@@ -32,9 +34,9 @@ class ItemController extends Controller
         }
 
         if (auth()->user()->role === 'admin') {
-            return view('admin.items.index', ['item' => $item->paginate(10), 'category' => $category]);
+            return view('admin.items.index', ['item' => $item->paginate(10), 'category' => $category, 'transaction' => $transaction]);
         } else if (auth()->user()->role === 'user') {
-            return view('user.items.index', ['item' => $item->paginate(10), 'category' => $category]);
+            return view('user.items.index', ['item' => $item->paginate(10), 'category' => $category, 'transaction' => $transaction]);
         }
     }
 

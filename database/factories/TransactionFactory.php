@@ -22,8 +22,8 @@ class TransactionFactory extends Factory
             'item' => Item::factory()->create()->id,
             'issued_to' => User::factory()->create()->id,
             'issued_by' => User::factory()->create()->id,
-            'transaction_type' => $this->faker->randomElement(['give', 'return']),
-            'status' => $this->faker->randomElement(['new', 'operational/working', 'condemn', 'for repair']),
+            'status' => $this->faker->randomElement(['assigned', 'unassigned']),
+            'condition' => $this->faker->randomElement(['new', 'operational/working', 'condemn', 'for repair']),
 
         ];
     }

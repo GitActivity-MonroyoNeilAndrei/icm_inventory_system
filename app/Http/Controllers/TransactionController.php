@@ -17,7 +17,7 @@ class TransactionController extends Controller
     public function index() {
 
         // $transaction = Transaction::query()->Paginate(10);
-        $transaction = Transaction::orderBy('id', 'ASC');
+        $transaction = Transaction::orderBy('id', 'DESC');
 
 
         $user = User::orderBy('first_name', 'ASC')->get();
@@ -40,19 +40,27 @@ class TransactionController extends Controller
         return view('admin.transactions.index', ['transaction' => $transaction->paginate(10), 'user' => $user, 'item' => $item, 'status' => $status]);
     }
 
-    public function store(Request $request) {
+    public function add($id) {
+        $user = User::orderBy('first_name', 'ASC')->get();
+
+        $item = Item::findOrFail($id);
+
+
+        return view('admin.transactions.create', compact('user', 'item' ));
+    }
+
+    public function storeTxn(Request $request, $id) {
         $transaction = $request->all();
 
         Transaction::create($transaction);
 
-        $id = $request->input('item');
-        $status = $request->input('status');
+        $item = Item::findOrFail($id);
 
-        User::where('id', $id)->update([
-                'status' => $status,
-            ]);
-        
-        return redirect()->back()->with('success', 'Transaction Added Successfully');
+        $item->update([
+            'status' => $request->input('status')
+        ]);
+
+        return redirect()->route('transaction.index')->with('success', 'Transaction Added Successfully');
     }
 
     public function edit($id)
@@ -85,5 +93,4 @@ class TransactionController extends Controller
             return redirect()->route('transaction.index')->with('TransactionUpdated', 'Item Updated Successfully');
         }
     }
-
 }

@@ -6,9 +6,11 @@
 <div id="show-background{{ $loop->iteration }}" class="fixed top-0 left-0 z-20 w-screen h-screen bg-gray-700/50 hidden"></div>
 
 <div id="myShow{{ $loop->iteration }}" class="fixed z-30 inset-x-0 top-10 hidden">
-  <form class="flex flex-col items-center bg-white mx-auto shadow-xl pt-4 pb-1 px-8 border border-gray-700 overflow-y-auto" style="max-height: 85vh; max-width: 30rem;">
+  <form class="flex flex-col items-center bg-white mx-auto shadow-xl pt-4 px-8 border border-gray-700 pb-6 overflow-y-auto" style="max-height: 85vh; max-width: 30rem;">
 
     <h1 class="text-3xl font-semibold leading-none">Item Details</h1>
+
+    {!! App\Helpers\Barcode::generateBarcode($rs->id) !!}
 
   <div class="flex gap-16 max-md:flex-col">
     <div>
@@ -72,11 +74,28 @@
     </div>
   </div>
 
+  <div class="w-full  overflow-x-auto border-gray-300">
+    <table class="w-full">
+      <tbody class="border-b border-gray-500">
+        @foreach($transaction as $txn)
+          @if($txn->item == $rs->id)
+          <tr class="border-b border-gray-500">
+            <td class="py-2"> {{ $txn->transaction_date }} </td>
+            <td class="py-2"> {{ $txn->status }} </td>
+            <td class="py-2"> {{ $txn->IssuedToUser->first_name . ' ' . $txn->IssuedToUser->last_name }} </td>
+          </tr>
+          @endif
+        @endforeach
+
+      </tbody>
+    </table>
+  </div>
 
 
 
 
-    <div class="py-5 flex gap-4">
+
+    <div class="py-5 flex gap-4 sticky bottom-0">
       <button type="button" id="closeShow{{ $loop->iteration }}" class="px-3 py-0.5 bg-red-700 rounded  text-slate-200">Close</button>
     </div>
 

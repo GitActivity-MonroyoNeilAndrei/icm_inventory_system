@@ -45,20 +45,15 @@ class UserController extends Controller
 
     public function update(Request $request, string $id) {
 
-        $existingUser = User::where('first_name', $request->input('first_name'))->where('last_name', $request->input('last_name'))->first();
+        try {
+            $user = User::findOrFail($id);
+            $user->update($request->all());
 
-        if($existingUser) {
-            return redirect()->back()->with('failed', 'User Already Exist');
-        } else {
-            try {
-                $user = User::findOrFail($id);
-                $user->update($request->all());
-                return redirect()->route('user.index')->with('userUpdated', 'User Updated Successfully');
-            } catch (ModelNotFoundException $e) {
-
-                return redirect()->route('admin.user.index')->with('errorNotFound', 'User not Found');
-            }
+            return redirect()->route('user.index')->with('userUpdated', 'User Updated Successfully');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('user.index')->with('errorNotFound', 'User not Found');
         }
+        
     }
 
     public function store (Request $request) {

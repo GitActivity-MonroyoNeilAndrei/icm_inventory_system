@@ -49,9 +49,9 @@
                   <td class="pl-2">
                     
                     @if($rs->status == 'activated')
-                      <div class="mx-auto text-sm text-white text-center px-2 rounded-lg bg-green-700">active</div>
+                      <div class="mx-auto text-sm text-white text-center px-1 rounded-lg bg-green-700">active</div>
                     @else
-                      <div class="mx-auto text-sm text-white text-center px-2 rounded-lg bg-red-700">Inactive</div>
+                      <div class="mx-auto text-sm text-white text-center px-1 rounded-lg bg-red-700">Inactive</div>
                     @endif
 
                   </td>

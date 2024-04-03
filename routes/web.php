@@ -7,7 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\TransactionController;
-
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +69,13 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 
     Route::resource('transaction', TransactionController::class);
 
+    Route::get('transaction/add/{id}', [TransactionController::class, 'add'])->name('transaction.add');
+
+    Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('transaction.store.txn');
+
+    Route::get('scan', function() {
+       return view('admin.items.scan-item');
+    })->name('item.scan');
 
 });
 

@@ -14,7 +14,6 @@
         <h1 class="text-2xl font-bold mb-3">All Transactions</h1>
 
         <div class="flex justify-between">
-          @include('admin.transactions.create')
 
           @include('admin.transactions.search-transaction')
         </div>
@@ -31,9 +30,9 @@
               <th class="py-2">Date of Transaction</th>
                 <th class="py-2">Issued To</th>
                 <th class="py-2">Issued By</th>
-                <th class="py-2">Transaction Type</th>
-                <th class="py-2">Item</th>
                 <th class="py-2">Status</th>
+                <th class="py-2">Item</th>
+                <th class="py-2">Condition</th>
 
                 <th class="py-2 w-20">Action</th>
               </tr>
@@ -43,18 +42,35 @@
             @foreach($transaction as $rs)
 
               <tr class="border-b border-gray-500 bg-gray-100 hover:bg-gray-200">
-              <td class="py-2 pl-2">{{ $rs->created_at }}</td>
+              <td class="py-2 pl-2">{{ $rs->transaction_date }}</td>
                 <td class="py-2 pl-2">{{ $rs->IssuedToUser->first_name . ' ' . $rs->IssuedToUser->last_name }}</td>
                 <td class="py-2 pl-2">{{ $rs->IssuedByUser->first_name . ' ' . $rs->IssuedByUser->last_name }}</td>
-                <td class="py-2 pl-2">{{ $rs->transaction_type }}</td>
+                <td class="py-2 pl-2"><span class="px-3 pt-0.5 pb-1 rounded-md text-gray-50 text-sm
+                  @if($rs->status == 'assigned')
+                    {{ 'bg-yellow-300/80 text-gray-800 font-semibold' }}
+                  @elseif($rs->status == 'unassigned')
+                    {{ 'bg-violet-800/80' }}
+                  @endif
+                ">{{ $rs->status }}</span></td>
                 <td class="py-2 pl-2">{{ $rs->Item->name }}</td>
-                <td class="py-2 pl-2">{{ $rs->status }}</td>
+                <td class="py-2 pl-2"><span class="px-3 pt-0.5 pb-1 rounded-md text-gray-50 text-sm
+                  @if($rs->condition == 'new')
+                    {{ 'bg-green-700/80' }}
+                  @elseif($rs->condition == 'operational/working')
+                    {{ 'bg-blue-700/80' }}
+                  @elseif($rs->condition == 'condemn')
+                    {{ 'bg-red-700/90' }}
+                  @elseif($rs->condition == 'for repair')
+                    {{ 'bg-orange-700/80' }}
+                  @endif
+
+                ">{{ $rs->condition }}</span></td>
 
                 <td class="py-2 text-center w-20">
                   
 
 
-                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('transaction.edit', $rs->id) }}">Edit</a>
+                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow-lg rounded-md text-slate-50" href="{{ route('transaction.edit', $rs->id) }}">Edit</a>
 
                 </td>
               </tr>

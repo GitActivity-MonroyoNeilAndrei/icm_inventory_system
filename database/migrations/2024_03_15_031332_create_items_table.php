@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->string('description')->nullable();
             $table->string('additional_details');
-            $table->boolean('issued')->deafult(false);
+            $table->string('status');
 
             $table->unsignedBigInteger('added_by');
 
             $table->foreign('added_by')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('status')->nullable();
+            $table->string('condition');
             $table->string('date_acquisition');
             $table->string('date_added');
             $table->string('barcode')->nullable();
