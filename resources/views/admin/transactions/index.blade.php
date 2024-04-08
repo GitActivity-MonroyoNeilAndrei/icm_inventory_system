@@ -14,8 +14,11 @@
         <h1 class="text-2xl font-bold mb-3">All Transactions</h1>
 
         <div class="flex justify-between">
-
           @include('admin.transactions.search-transaction')
+
+          @include('admin.transactions.filter')
+
+          <a href="{{ route('transaction.exportCSV') }}">export CSV</a>
         </div>
 
         @foreach($errors->all() as $error)
@@ -51,7 +54,7 @@
                   @elseif($rs->status == 'unassigned')
                     {{ 'bg-violet-800/80' }}
                   @endif
-                ">{{ $rs->status }}</span></td>
+                ">{{ $rs->status == 'assigned' ? 'assigned' : 'returned' }}</span></td>
                 <td class="py-2 pl-2">{{ $rs->Item->name }}</td>
                 <td class="py-2 pl-2"><span class="px-3 pt-0.5 pb-1 rounded-md text-gray-50 text-sm
                   @if($rs->condition == 'new')
@@ -85,16 +88,6 @@
 
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-
 
     </div>
 </div>

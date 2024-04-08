@@ -35,9 +35,9 @@
     </div>
 
     <div class="py-5 flex flex-col gap-3">
-      <input type="submit" class="px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded text-slate-200 cursor-pointer" value="Log-in">
+      <input type="submit" class="px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded text-slate-200 cursor-pointer mx-auto" value="Log-in">
 
-      <a class="text-sm underline text-blue-800" href="">Register here</a>
+      <a class="text-sm underline text-blue-800" href="{{ route('forget.password') }}">Forgot Password?</a>
     </div>
 
   </form>

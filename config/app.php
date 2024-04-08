@@ -186,6 +186,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'CSV' => Illuminate\Support\Facades\CSV::class,
     ])->toArray(),
 
 ];

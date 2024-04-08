@@ -9,6 +9,7 @@ use App\Models\Option;
 use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Picqer\Barcode\BarcodeGeneratorHTML;
+use Illuminate\Validation\Rule;
 
 use App\Imports\ItemImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -34,9 +35,9 @@ class ItemController extends Controller
         }
 
         if (auth()->user()->role === 'admin') {
-            return view('admin.items.index', ['item' => $item->paginate(10), 'category' => $category, 'transaction' => $transaction]);
+            return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction]);
         } else if (auth()->user()->role === 'user') {
-            return view('user.items.index', ['item' => $item->paginate(10), 'category' => $category, 'transaction' => $transaction]);
+            return view('user.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction]);
         }
     }
 
@@ -59,6 +60,18 @@ class ItemController extends Controller
         $added_by = 1;
         $date_acquisition = $request->input('date_acquisition');
         $date_added = $date_today;
+
+        $existing_item = Item::where('name', $name)
+                            ->where('category', $category)
+                            ->where('serial_no', $serial_no)
+                            ->where('model', $model)
+                            ->where('description', $description)
+                            ->where('additional_details', $additional_details)
+                            ->first();
+
+        if($existing_item){
+            return redirect()->back()->with('fail', 'Item Already Exist!');
+        }
 
 
         $item = Item::create([

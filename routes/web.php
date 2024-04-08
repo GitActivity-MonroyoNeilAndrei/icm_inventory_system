@@ -7,7 +7,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Models\Transaction;
+use App\Http\Middleware\TrustHosts;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +33,13 @@ Route::get('login', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'authenticate'])->name('login');
 
 Route::get('login', [AuthController::class, 'login'])->middleware('guest');
+
+Route::get('/forget-password', [ForgotPasswordController::class, 'forgetPassword'])->name('forget.password');
+Route::post('/forget-password', [ForgotPasswordController::class, 'forgetPasswordPost'])->name('forget.password.post');
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'resetPassword'])->name('reset.password');
+
+Route::post('/reset-password/{token}', [ForgotPasswordController::class, 'resetPasswordPost'])->name('reset.password.post');
+
 
 Route::get('check', function () {
     return auth()->user();
@@ -77,6 +87,8 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
        return view('admin.items.scan-item');
     })->name('item.scan');
 
+    Route::get('exportCSV', [TransactionController::class, 'exportCSV'])->name('transaction.exportCSV');
+
 });
 
 
@@ -99,6 +111,3 @@ Route::prefix('user')->middleware(['user', 'auth'])->group(function () {
 
 
 });
-
-
-

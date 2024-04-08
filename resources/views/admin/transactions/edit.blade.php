@@ -55,10 +55,10 @@
     <div class="mt-2 w-full">
       <label class="block text-sm font-medium leading-6 text-gray-900">Condition:</label>
       <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="condition" required>
-        <option value="new">new</option>
-        <option value="operational/working">operational/working</option>
-        <option value="condemn">condemn</option>
-        <option value="for repair">for repair</option>
+          <option value="new" {{ $transaction->condition == 'new' ? 'selected' : '' }}>new</option>
+          <option value="operational/working" {{ $transaction->condition == 'operational/working' ? 'selected' : '' }}>operational/working</option>
+          <option value="condemn" {{ $transaction->condition == 'condemn' ? 'selected' : '' }}>condemn</option>
+          <option value="for repair" {{ $transaction->condition == 'for repair' ? 'selected' : '' }}>for repair</option>
       </select>
     </div>
 

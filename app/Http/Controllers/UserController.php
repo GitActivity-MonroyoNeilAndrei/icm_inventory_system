@@ -28,7 +28,7 @@ class UserController extends Controller
             $users = $users->where('first_name', 'like', '%'. $search .'%')->orWhere('last_name', 'like', '%' . $search . '%');
         }
 
-        return view ('admin.users.index', ['user' => $users->Paginate(10), 'category' => $category, 'position' => $position, 'campus' => $campus, 'department' => $department]);
+        return view ('admin.users.index', ['user' => $users->Paginate(15), 'category' => $category, 'position' => $position, 'campus' => $campus, 'department' => $department]);
 
     }
 

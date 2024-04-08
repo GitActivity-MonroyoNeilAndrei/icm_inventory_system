@@ -14,7 +14,7 @@
     <div class="mt-2 w-full">
       <label class="block text-sm font-medium leading-6 text-gray-900">Transaction Type:</label>
       <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2 bg-gray-300" name="status" required>
-        <option value="{{ $item->status == 'assigned' ? 'unassigned' : 'assigned' }}">{{ $item->status == 'assigned' ? 'unassigned' : 'assigned' }}</option>
+        <option value="{{ $item->status == 'assigned' ? 'unassigned' : 'assigned' }}">{{ $item->status == 'assigned' ? 'returned' : 'assigned' }}</option>
       </select>
     </div>
 
@@ -48,14 +48,15 @@
     </div>
 
     <div class="mt-2 w-full">
-      <label class="block text-sm font-medium leading-6 text-gray-900">Status:</label>
+      <label class="block text-sm font-medium leading-6 text-gray-900">Condition:</label>
       <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="condition" required>
-          <option value="new" {{ $item->condition == 'new' ? 'selected' : '' }}>new</option>
-          <option value="operational/working" {{ $item->condition == 'operational/working' ? 'selected' : '' }}>operational/working</option>
-          <option value="condemn" {{ $item->condition == 'condemn' ? 'selected' : '' }}>condemn</option>
-          <option value="for repair" {{ $item->condition == 'for repair' ? 'selected' : '' }}>for repair</option>
+        <option value="new">new</option>
+        <option value="operational/working">operational/working</option>
+        <option value="condemn">condemn</option>
+        <option value="for repair">for repair</option>
       </select>
     </div>
+
 
     <div class="py-5 flex gap-4">
       <a class="px-3 py-1 bg-red-700 rounded  text-slate-200" href="{{ route('admin.item.index') }}">Cancel</a>
