@@ -8,7 +8,9 @@ use App\Models\Option;
 use App\Models\User;
 use App\Models\Item;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\CSV;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TransactionsExport;
 
 class TransactionController extends Controller
 {
@@ -151,22 +153,15 @@ class TransactionController extends Controller
         }
     }
 
-    public function exportCSV()
+    public function exportCSV(Request $request)
     {
-        // Retrieve transactions data
-        $transactions = Transaction::all();
+        $transaction = DB::table('transactions');
 
-        // Define CSV headers
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="transactions.csv"',
-        ];
+        $transaction->select('transaction_date', 'item', 'issued_to', 'issued_by', 'status', 'condition');
 
-        // Prepare CSV data
-        $csvData = CSV::from($transactions)->toString();
+        $this->filter($transaction);
 
-        // Output CSV data as a response
-        return response($csvData, 200, $headers);
+        // Download the results as a CSV file
+        return Excel::download(new TransactionsExport($transaction), 'transactions.csv');
     }
-
 }

@@ -1,4 +1,4 @@
-<button id="openFilterButton" class="bg-blue-600 hover:bg-blue-500 px-5 py-1 mb-3 rounded text-slate-200 shadow">
+<button id="openFilterButton" class="bg-blue-600 hover:bg-blue-500 px-3 py-0.5 rounded text-gray-50 shadow">
   Filter
 </button>
 

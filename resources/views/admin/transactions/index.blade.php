@@ -14,12 +14,17 @@
         <h1 class="text-2xl font-bold mb-3">All Transactions</h1>
 
         <div class="flex justify-between">
-          @include('admin.transactions.search-transaction')
 
-          @include('admin.transactions.filter')
+          <div class="flex items-center gap-3">
+            @include('admin.transactions.search-transaction')
 
-          <a href="{{ route('transaction.exportCSV') }}">export CSV</a>
+            @include('admin.transactions.filter')
+          </div>
+
+
+          @include('admin.transactions.export-csv')
         </div>
+
 
         @foreach($errors->all() as $error)
 
