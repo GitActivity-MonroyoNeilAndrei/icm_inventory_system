@@ -27,6 +27,7 @@ class ItemController extends Controller
 
 
         $category = Option::where('category', 'Category')->get();
+        $department = Option::where('category', 'Department')->get();
 
         $search = request()->get('search');
 
@@ -35,9 +36,9 @@ class ItemController extends Controller
         }
 
         if (auth()->user()->role === 'admin') {
-            return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction]);
+            return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
         } else if (auth()->user()->role === 'user') {
-            return view('user.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction]);
+            return view('user.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
         }
     }
 
@@ -57,36 +58,19 @@ class ItemController extends Controller
         $description = $request->input('description');
         $additional_details = $request->input('additional_details');
         $status = $request->input('status');
+        $condition = $request->input('condition');
         $added_by = 1;
         $date_acquisition = $request->input('date_acquisition');
         $date_added = $date_today;
 
-        $existing_item = Item::where('name', $name)
-                            ->where('category', $category)
-                            ->where('serial_no', $serial_no)
-                            ->where('model', $model)
-                            ->where('description', $description)
-                            ->where('additional_details', $additional_details)
-                            ->first();
+        $item = Item::firstOrCreate(
+            ['name' => $name, 'category' => $category, 'serial_no' => $serial_no, 'model' => $model, 'description' => $description, 'additional_details' => $additional_details],
+            ['status' => $status, 'condition' => $condition, 'added_by' => $added_by, 'date_acquisition' => $date_acquisition, 'date_added' => $date_added]
+        );
 
-        if($existing_item){
-            return redirect()->back()->with('fail', 'Item Already Exist!');
+        if (!$item->wasRecentlyCreated) {
+            return redirect()->back()->with('failed', 'Item already exists');
         }
-
-
-        $item = Item::create([
-            'name' => $name,
-            'category' => $category,
-            'serial_no' => $serial_no,
-            'model' => $model,
-            'description' => $description,
-            'additional_details' => $additional_details,
-            'status' => $status,
-            'added_by' => $added_by,
-            'date_acquisition' => $date_acquisition,
-            'date_added' => $date_added,
-        ]);
-
 
         return redirect()->back()->with('success', 'Item added Successfully');
     }

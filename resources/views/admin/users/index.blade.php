@@ -21,7 +21,7 @@
 
 
         <div class="w-full  overflow-x-auto border-gray-300">
-          <table class="w-full">
+          <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-gray-500">
                 <th class="py-2">First Name</th>
@@ -49,9 +49,9 @@
                   <td class="pl-2">
                     
                     @if($rs->status == 'activated')
-                      <div class="mx-auto text-sm text-white text-center px-1 rounded-lg bg-green-700">active</div>
+                      <div class="max-w-16 mx-auto text-sm text-white text-center rounded-lg bg-green-700">Active</div>
                     @else
-                      <div class="mx-auto text-sm text-white text-center px-1 rounded-lg bg-red-700">Inactive</div>
+                      <div class="max-w-16 mx-auto text-sm text-white text-center rounded-lg bg-red-700">Inactive</div>
                     @endif
 
                   </td>

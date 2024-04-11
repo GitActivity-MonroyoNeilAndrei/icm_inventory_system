@@ -21,11 +21,17 @@
     <div class="mt-2 w-full">
       <label class="block text-sm font-medium leading-6 text-gray-900">Issued To:</label>
       <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="issued_to" required>
-      @foreach($user as $rs)
-          @if($rs->role != 'admin')
+      @if($item->status == 'assigned')
+        @foreach($user as $rs)
+          @if($rs->id == $item->id)
           <option value="{{ $rs->id }}">{{ $rs->first_name . ' ' . $rs->last_name }}</option>
           @endif
         @endforeach
+      @else
+        @foreach($user as $rs)
+          <option value="{{ $rs->id }}">{{ $rs->first_name . ' ' . $rs->last_name }}</option>
+        @endforeach
+      @endif
       </select>
     </div>
 

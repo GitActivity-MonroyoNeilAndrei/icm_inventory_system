@@ -26,17 +26,9 @@ class TransactionController extends Controller
 
         $status = Option::where('category', 'status')->orderBy('name', 'ASC')->get();
 
-        $search = request()->get('search');
+        $this->search($transaction);
 
-        if(request()->has('search')) {
-            $transaction = $transaction->where('issued_to', 'like', '%'. $search .'%');
-
-            $transaction = Transaction::with('IssuedToUser')
-                ->whereHas('IssuedToUser', function ($query) use ($search) {
-                    $query->where('first_name', 'like', '%' . $search . '%');
-                })
-                ->orderBy('id', 'ASC');
-        }
+        $transaction->orderBy('id', 'DESC');
 
         return view('admin.transactions.index', ['transaction' => $transaction->paginate(15),
             'user' => $user,
@@ -47,6 +39,7 @@ class TransactionController extends Controller
             'selectedStatus' => request()->get('status', []),
             'selectedItem' => request()->get('item', []),
             'selectedCondition' => request()->get('condition', []),
+            'search' => request()->get('search')
 
         ]);
     }
@@ -70,31 +63,22 @@ class TransactionController extends Controller
         $status = $request->input('status');
 
 
-        $existing_txn = Transaction::where('item', $item)
-        ->where('issued_to', $issued_to)
-        ->where('issued_by', $issued_by)
-        ->where('condition', $condition)
-        ->where('status', $status)
-        ->first();
+        $transaction = Transaction::firstOrCreate(
+            ['item' => $item, 'issued_to' => $issued_to, 'issued_by' => $issued_by, 'condition' => $condition, 'status' => $status]
+        );
 
-        if($existing_txn){
+
+        if(!$transaction->wasRecentlyCreated) {
             return redirect()->route('transaction.index')->with('failed', 'Transaction Already Exist');
-
-        } else {
-
-            $transaction = $request->all();
-
-            Transaction::create($transaction);
-
-            $item = Item::findOrFail($id);
-
-            $item->update([
-                'status' => $request->input('status')
-            ]);
-
-            return redirect()->route('transaction.index')->with('success', 'Transaction Added Successfully');
         }
 
+        $itemSelected = Item::findOrFail($id);
+
+        $itemSelected->update([
+            'status' => $request->input('status')
+        ]);
+
+        return redirect()->route('transaction.index')->with('success', 'Transaction Added Successfully');
     }
 
     public function edit($id)
@@ -130,7 +114,6 @@ class TransactionController extends Controller
 
 
     public function filter ($transaction) {
-        $transaction->orderBy('id', 'DESC');
 
         if (request()->has('issued_to')) {
             $transaction->whereIn('issued_to', request()->get('issued_to'));
@@ -153,13 +136,43 @@ class TransactionController extends Controller
         }
     }
 
+    public function search($transaction) {
+
+        $search = request()->get('search');
+
+        if(request()->has('search')) {
+
+            $transaction->whereHas('IssuedToUser', function ($query) use ($search) {
+                $query->where('first_name', 'like', '%' . $search . '%');
+            });
+        }
+    }
+
     public function exportCSV(Request $request)
     {
+
         $transaction = DB::table('transactions');
 
-        $transaction->select('transaction_date', 'item', 'issued_to', 'issued_by', 'status', 'condition');
-
         $this->filter($transaction);
+
+        $transaction = DB::table('transactions')
+        ->select(
+            'transactions.transaction_date',
+            'items.name as item_name',
+            DB::raw("CONCAT(users_issued_to.first_name, ' ', users_issued_to.last_name) as issued_to_name"),
+            DB::raw("CONCAT(users_issued_by.first_name, ' ', users_issued_by.last_name) as issued_by_name"),
+            'transactions.status',
+            'transactions.condition'
+        )
+        ->join('items', 'transactions.item', '=', 'items.id')
+        ->join('users as users_issued_to', 'transactions.issued_to', '=', 'users_issued_to.id')
+        ->join('users as users_issued_by', 'transactions.issued_by', '=', 'users_issued_by.id')
+        ->orderBy('transactions.id', 'DESC');
+    
+    
+
+
+        // $this->search($transaction);
 
         // Download the results as a CSV file
         return Excel::download(new TransactionsExport($transaction), 'transactions.csv');

@@ -13,7 +13,7 @@
       @method('PUT')
         <div class="bg-white p-6 rounded-lg shadow-lg w-80 overflow-y-auto" style="max-height: 85vh;">
 
-            <h1 class="font-bold text-2xl text-center text-neutral-800">Edit User</h1>
+            <h1 class="font-bold text-2xl text-center text-neutral-800">Edit Item</h1>
 
             <div class="mt-2 w-full">
               <label class="block text-sm font-medium leading-6 text-gray-900">Name:</label>
@@ -37,12 +37,12 @@
 
             <div class="mt-2 w-full">
               <label class="block text-sm font-medium leading-6 text-gray-900">Description:</label>
-              <input name="description" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" value="{{ $item->description }}" required>
+              <input name="description" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" value="{{ $item->description }}">
             </div>
 
             <div class="mt-2 w-full">
               <label class="block text-sm font-medium leading-6 text-gray-900">Additional Details:</label>
-              <textarea name="additional_details" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" rows="4" required>{{ $item->additional_details }}</textarea>
+              <textarea name="additional_details" type="text" class="px-3 w-full py-1 shadow ring-1 ring-gray-600 hover:ring-2 rounded focus-outline-none focus:ring-offset-2 focus:ring-indigo-600" rows="4">{{ $item->additional_details }}</textarea>
             </div>
 
             <div class="mt-2 w-full">

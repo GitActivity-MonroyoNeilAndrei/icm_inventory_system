@@ -32,7 +32,7 @@
 
         @endforeach
         <div class="w-full  overflow-x-auto border-gray-300">
-          <table class="w-full">
+          <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-gray-500">
               <th class="py-2">Date of Transaction</th>

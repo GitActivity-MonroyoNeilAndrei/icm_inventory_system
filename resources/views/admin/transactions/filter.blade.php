@@ -12,6 +12,9 @@
     <h1 class="text-2xl font-semibold leading-none">Filter Transactions</h1>
 
     <div class="w-full flex max-sm:flex-col sm:mx-auto gap-5 border border-dark">
+
+      <input name="search" type="text" value="{{ $search }}" hidden>
+
       <div class="min-sm:w-1/2 sm:w-full">
         <div class="mt-2 w-full">
           <label class="block text-sm font-medium leading-6 text-gray-900">Issued By:</label>
@@ -63,12 +66,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
 
 
     <div class="py-5 flex gap-4">

@@ -28,7 +28,7 @@ class UserController extends Controller
             $users = $users->where('first_name', 'like', '%'. $search .'%')->orWhere('last_name', 'like', '%' . $search . '%');
         }
 
-        return view ('admin.users.index', ['user' => $users->Paginate(15), 'category' => $category, 'position' => $position, 'campus' => $campus, 'department' => $department]);
+        return view ('admin.users.index', ['user' => $users->Paginate(15), 'category' => $category, 'position' => $position, 'campus' => $campus, 'department' => $department, 'search' => $search]);
 
     }
 
@@ -58,27 +58,37 @@ class UserController extends Controller
 
     public function store (Request $request) {
 
-        $existingUser = User::where('first_name', $request->input('first_name'))->where('last_name', $request->input('last_name'))->first();
+        $validatedUser = $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|unique:users,email',
+            'position' => 'required|string',
+            'department' => 'required|string',
+            'role' => 'required|string',
+            'campus' => 'required|string',
+        ]);
 
-        if($existingUser) {
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+        $email = $request->input('email');
+        $position = $request->input('position');
+        $department = $request->input('department');
+        $role = $request->input('role');
+        $campus = $request->input('campus');
+
+
+        $user = User::firstOrCreate(
+            ['first_name' => $first_name, 'last_name' => $last_name, 'role' => $role],
+            ['email' => $email, 'position' => $position, 'department' => $department, 'campus' => $campus]
+        );
+
+        if (!$user->wasRecentlyCreated) {
             return redirect()->back()->with('failed', 'User Already Exist');
-        } else {
-            User::create([
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
-                'email' => $request->input('email'),
-                'position' => $request->input('position'),
-                'department' => $request->input('department'),
-                'role' => $request->input('role'),
-                'campus' => $request->input('campus'),
-                'password' => 'icmadmin1993'
-            ]);
-
-            return redirect()->back()->with('success', 'User Added Successfully');
         }
 
-
+        return redirect()->back()->with('success', 'User Added Successfully');
     }
+
 
     public function isActivated(string $id) {
 
@@ -89,8 +99,6 @@ class UserController extends Controller
 
         return redirect()->back()->with('statusChanged', 'User Status Changed');
     }
-
-
 
     public function updateProfile(Request $request, string $id) {
         try {
@@ -156,7 +164,5 @@ class UserController extends Controller
         {
             return redirect()->route('user.dashboard')->with('success', 'Logged in successfully');
         }
-
-        
     }
 }

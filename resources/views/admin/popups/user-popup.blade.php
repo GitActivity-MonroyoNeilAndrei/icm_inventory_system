@@ -25,6 +25,14 @@
     <script>
         openPopup("{{ Session::get('errorNotFound') }}", "success");
     </script>
+@elseif(Session::has('itemUpdated'))
+<script>
+    openPopup("{{ Session::get('itemUpdated') }}", "success");
+</script>
+@elseif(Session::has('emailExist'))
+<script>
+    openPopup("{{ Session::get('emailExist') }}", "warning");
+</script>
 @elseif ($errors->any())
     @foreach($errors->all() as $error)
     <script>  
@@ -32,3 +40,4 @@
     </script>
     @endforeach
 @endif
+

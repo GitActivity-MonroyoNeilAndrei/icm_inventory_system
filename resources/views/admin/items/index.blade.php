@@ -30,7 +30,7 @@
 
         @endforeach
         <div class="w-full  overflow-x-auto border-gray-300">
-          <table class="w-full">
+          <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-gray-500">
                 <th class="py-2">Name</th>
@@ -49,12 +49,29 @@
 
             @foreach($item as $rs)
 
-              <tr class="border-b border-gray-500 bg-gray-100 hover:bg-gray-200">
+              <tr class="border-b border-gray-500 hover:bg-gray-300 {{ $rs->condition == 'condemn' ? 'bg-gray-200' : 'bg-gray-100' }}">
                 <td class="py-2 pl-2">{{ $rs->name }}</td>
-                <td class="py-2 pl-2">{{ $rs->category }}</td>
+                <td class="py-2 pl-2 ">{{ $rs->category }}</td>
                 <td class="py-2 pl-2">{{ $rs->model }}</td>
-                <td class="py-2 pl-2">{{ $rs->status }}</td>
-                <td class="py-2 pl-2">{{ $rs->condition }}</td>
+                <td class="py-2 pl-2"><span class="px-3 pt-0.5 pb-1 rounded-md text-gray-50 text-sm
+                  @if($rs->status == 'assigned')
+                    {{ 'bg-yellow-300/80 text-gray-800 font-semibold' }}
+                  @elseif($rs->status == 'unassigned')
+                    {{ 'bg-violet-800/80' }}
+                  @endif
+                ">{{ $rs->status == 'assigned' ? 'assigned' : 'available' }}</span></td>
+                <td class="py-2 pl-2"><span class="px-3 pt-0.5 pb-1 rounded-md text-gray-50 text-sm
+                  @if($rs->condition == 'new')
+                    {{ 'bg-green-700/80' }}
+                  @elseif($rs->condition == 'operational/working')
+                    {{ 'bg-blue-700/80' }}
+                  @elseif($rs->condition == 'condemn')
+                    {{ 'bg-red-700/90' }}
+                  @elseif($rs->condition == 'for repair')
+                    {{ 'bg-orange-700/80' }}
+                  @endif
+
+                ">{{ $rs->condition }}</span></td>
                 <td class="py-2 pl-2">{{ $rs->date_acquisition }}</td>
 
                 <td class="py-2 text-center w-32">
@@ -65,7 +82,11 @@
 
                 </td>
                 <td class="py-2 text-center w-24">
-                  <a class="px-6 py-1 text-sm bg-blue-700 hover:bg-blue-600 shadow rounded-md text-slate-50" href="{{ route('transaction.add', $rs->id) }}">Add</a>
+                  @if($rs->condition == 'condemn')
+                    <a class="px-6 py-1 text-sm bg-red-700/90 shadow rounded-md text-slate-50 cursor-not-allowed" href="">Add</a>
+                  @else
+                    <a class="px-6 py-1 text-sm bg-blue-700 hover:bg-blue-600 shadow rounded-md text-slate-50" href="{{ route('transaction.add', $rs->id) }}">Add</a>
+                  @endif
                 </td>
               </tr>
 

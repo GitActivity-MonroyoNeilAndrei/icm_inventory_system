@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('serial_no')->nullable();
             $table->string('model')->nullable();
             $table->string('description')->nullable();
-            $table->string('additional_details');
+            $table->string('additional_details')->nullable();
             $table->string('status');
 
             $table->unsignedBigInteger('added_by');

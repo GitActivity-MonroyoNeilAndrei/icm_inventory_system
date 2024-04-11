@@ -25,7 +25,7 @@ class TransactionsExport implements FromCollection, WithHeadings
     {
         return [
             'Transaction Date',
-            'Item ID',
+            'Item',
             'Issued To',
             'Issued By',
             'Status',

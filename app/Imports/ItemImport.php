@@ -37,7 +37,8 @@ class ItemImport implements ToCollection
                 'description' => $row[4],
                 'additional_details' => $row[5],
                 'status' => $row[6],
-                'date_acquisition' => $row[7],
+                'condition' => $row[7],
+                'date_acquisition' => $row[8],
                 'date_added' => $date_today,
                 'added_by' => auth()->user()->id,
             ]);

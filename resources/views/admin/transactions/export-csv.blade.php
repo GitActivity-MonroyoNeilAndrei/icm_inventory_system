@@ -1,5 +1,8 @@
 <form action="{{ route('transaction.exportCSV') }}" method="GET">
     @csrf
+
+    <input name="search" type="text" value="{{ $search }}" hidden>
+
     <select name="issued_to[]" multiple hidden>
       @foreach($user as $rs)
         <option value="{{ $rs->id }}" {{ in_array($rs->id, $selectedIssuedTo) ? 'selected' : '' }}>{{ $rs->first_name . ' ' . $rs->last_name }}</option>
