@@ -9,14 +9,14 @@
     <div class="container mx-auto">
 
         <div class="pl-1 mb-2 flex items-center">
-          <img src="{{ asset('images/home-logo-black.png')  }}" class="size-5 me-2" alt=""> <span class="text-lg font-semibold">Home > Users </span>
+          <img src="{{ asset('images/home-logo-black.png')  }}" class="size-5 me-2" alt=""> <span class="text-lg font-semibold">Home > Employees </span>
         </div>
-        <h1 class="text-2xl font-bold mb-3">All Users</h1>
+        <h1 class="text-2xl font-bold mb-3">All Employees</h1>
 
         <div class="flex items-center justify-between max-sm:flex-col max-sm:space-y-2">
-          @include('admin.users.create')
+          @include('admin.employees.create')
 
-          @include('admin.users.search-user')
+          @include('admin.employees.search-user')
         </div>
 
 
@@ -27,10 +27,8 @@
                 <th class="py-2">First Name</th>
                 <th class="py-2">Last Name</th>
                 <th class="py-2">Position</th>
-                <th class="py-2">Department</th>
-                <th class="py-2">Role</th>
+                <th class="py-2">Department</th>  
                 <th class="py-2">Campus</th>
-                <th class="py-2">Status</th>
                 <th class="py-2 w-44">Actions</th>
               </tr>
             </thead>
@@ -38,32 +36,22 @@
 
             @if($user->count() > 0)
               @foreach($user as $rs)
-                @if($rs->role != 'employee')
+                @if($rs->status != 'deleted')
 
                   <tr class="border-b border-gray-500 bg-gray-100 hover:bg-gray-200 align-top">
                     <td class="py-2 pl-2">{{ $rs->first_name }}</td>
                     <td class="py-2 pl-2">{{ $rs->last_name }}</td>
                     <td class="py-2 pl-2">{{ $rs->position }}</td>
                     <td class="py-2 pl-2">{{ $rs->department }}</td>
-                    <td class="py-2 pl-2">{{ $rs->role }}</td>
                     <td class="py-2 pl-2">{{ $rs->campus }}</td>
-                    <td class="py-2 pl-2">
-                      
-                      @if($rs->status == 'activated')
-                        <div class="w-16 mx-auto text-sm text-white text-center rounded-lg bg-green-700">Active</div>
-                      @else
-                        <div class="w-16 mx-auto text-sm text-white text-center rounded-lg bg-red-700">Inactive</div>
-                      @endif
-
-                    </td>
                     <td class="py-2 text-center w-44">
-                      <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('user.edit', $rs->id) }}">Edit</a>
+                      <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('employee.edit', $rs->id) }}">Edit</a>
 
-                      @include('admin.users.change-status')
+                      @include('admin.employees.change-status')
 
                     </td>
                   </tr>
-                  @endif
+                 @endif
                 @endforeach
               @else
               <tr>

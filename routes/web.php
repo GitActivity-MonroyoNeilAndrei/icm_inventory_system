@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\EmployeeController;
 use App\Models\Transaction;
 use App\Http\Middleware\TrustHosts;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -58,6 +59,8 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
 
+    Route::get('item/Unavailable', [ItemController::class, 'indexUnavailable'])->name('admin.item.indexUnavailable');
+
     Route::resource('item', ItemController::class)->names([
         'index' => 'admin.item.index',
         'store' => 'admin.item.store',
@@ -67,7 +70,11 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 
     Route::resource('user', UserController::class);
 
+    Route::resource('employee', EmployeeController::class);
+
     Route::post('user/change-status/{id}', [UserController::class, 'isActivated'])->name('user.changeStatus');
+
+    Route::post('employee/change-status/{id}', [EmployeeController::class, 'isActivated'])->name('employee.changeStatus');
     
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -108,6 +115,4 @@ Route::prefix('user')->middleware(['user', 'auth'])->group(function () {
 
 
     Route::post('logout', [AuthController::class, 'logout'])->name('user.logout');
-
-
 });

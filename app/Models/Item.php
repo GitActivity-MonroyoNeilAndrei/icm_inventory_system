@@ -19,6 +19,7 @@ class Item extends Model
         'added_by',
         'status',
         'condition',
+        'location',
         'date_acquisition',
         'date_added',
         'barcode'

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class EmployeeController extends Controller
 {
     use HasFactory;
 
@@ -18,7 +18,7 @@ class UserController extends Controller
 
         $users = User::query();
 
-        $users->where('role', '!=', 'employee')->orderBy('first_name', 'ASC');
+        $users->where('role', 'employee')->orderBy('first_name', 'ASC');
 
         $category = Option::where('category', 'category')->get();
         $position = Option::where('category', 'position')->get();
@@ -31,7 +31,7 @@ class UserController extends Controller
             $users = $users->where('first_name', 'like', '%'. $search .'%')->orWhere('last_name', 'like', '%' . $search . '%');
         }
 
-        return view ('admin.users.index', ['user' => $users->Paginate(15), 'category' => $category, 'position' => $position, 'campus' => $campus, 'department' => $department, 'search' => $search]);
+        return view ('admin.employees.index', ['user' => $users->Paginate(15), 'category' => $category, 'position' => $position, 'campus' => $campus, 'department' => $department, 'search' => $search]);
 
     }
 
@@ -43,7 +43,7 @@ class UserController extends Controller
         $campus = Option::where('category', 'campus')->get();
         $department = Option::where('category', 'department')->get();
 
-        return view('admin.users.edit', compact('user', 'position', 'department', 'category', 'campus'));
+        return view('admin.employees.edit', compact('user', 'position', 'department', 'category', 'campus'));
     }
 
     public function update(Request $request, string $id) {
@@ -52,9 +52,9 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $user->update($request->all());
 
-            return redirect()->route('user.index')->with('userUpdated', 'User Updated Successfully');
+            return redirect()->route('employee.index')->with('userUpdated', 'User Updated Successfully');
         } catch (ModelNotFoundException $e) {
-            return redirect()->route('user.index')->with('errorNotFound', 'User not Found');
+            return redirect()->route('employee.index')->with('errorNotFound', 'User not Found');
         }
         
     }
@@ -64,25 +64,21 @@ class UserController extends Controller
         $validatedUser = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|unique:users,email',
             'position' => 'required|string',
             'department' => 'required|string',
-            'role' => 'required|string',
             'campus' => 'required|string',
         ]);
 
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
-        $email = $request->input('email');
         $position = $request->input('position');
         $department = $request->input('department');
-        $role = $request->input('role');
         $campus = $request->input('campus');
 
 
         $user = User::firstOrCreate(
-            ['first_name' => $first_name, 'last_name' => $last_name, 'role' => $role],
-            ['email' => $email, 'position' => $position, 'department' => $department, 'campus' => $campus]
+            ['first_name' => $first_name, 'last_name' => $last_name, 'role' => 'employee'],
+            ['position' => $position, 'department' => $department, 'campus' => $campus]
         );
 
         if (!$user->wasRecentlyCreated) {
@@ -97,7 +93,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        $newStatus = $user->status === 'activated' ? 'deactivated' : 'activated';
+        $newStatus = 'deleted';
         $user->update(['status' => $newStatus]);
 
         return redirect()->back()->with('statusChanged', 'User Status Changed');

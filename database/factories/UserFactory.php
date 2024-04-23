@@ -28,14 +28,12 @@ class UserFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'position' => $this->faker->randomElement(['position 1', 'position 2']),
             'department' => $this->faker->randomElement(['department 1', 'department 2']),
-            'role' => 'user',
+            'role' => 'employee',
             'campus' => $this->faker->randomElement(['campus 1', 'campus 2']),
             'status' => 'activated',
             'password_changed' => false,
             'email' => $this->faker->unique()->safeEmail(),
             'password' => bcrypt('password'),
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 

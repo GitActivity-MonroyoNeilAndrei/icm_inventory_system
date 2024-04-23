@@ -46,14 +46,32 @@
             </div>
 
             <div class="mt-2 w-full">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Status:</label>
-            <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="status" required>
-                <option value="new">new</option>
-                <option value="operational/working">operational/working</option>
-                <option value="condemn">condemn</option>
-                <option value="for repair">for repair</option>
-            </select>
-          </div>
+              <label class="block text-sm font-medium leading-6 text-gray-900">Status:</label>
+              <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="status" required>
+                  <option value="assigned" {{ $item->status == 'assigned' ? 'selected' : '' }} >assigned</option>
+                  <option value="unassigned" {{ $item->status == 'unassigned' ? 'selected' : '' }}>unassigned</option>
+              </select>
+            </div>
+
+
+            <div class="mt-2 w-full">
+              <label class="block text-sm font-medium leading-6 text-gray-900">Condition:</label>
+              <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="condition" required>
+                  <option value="new" {{ $item->condition == 'new' ? 'selected' : '' }} >new</option>
+                  <option value="operational/working" {{ $item->condition == 'operational/working' ? 'selected' : '' }}>operational/working</option>
+                  <option value="condemn" {{ $item->condition == 'condemn' ? 'selected' : '' }}>condemn</option>
+                  <option value="for repair" {{ $item->condition == 'for repair' ? 'selected' : '' }}>for repair</option>
+              </select>
+            </div>
+
+            <div class="mt-2 w-full">
+              <label class="block text-sm font-medium leading-6 text-gray-900">Location:</label>
+              <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="location" required>
+                @foreach($department as $rs)
+                  <option value="{{ $rs->name }}" {{ $rs->name == $item->location ? 'selected' : '' }}>{{ $rs->name }}</option>
+                @endforeach
+              </select>
+            </div>
 
             <div class="mt-2 w-full">
               <label class="block text-sm font-medium leading-6 text-gray-900">Date of Acquisition:</label>

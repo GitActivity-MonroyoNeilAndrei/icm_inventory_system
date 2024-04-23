@@ -14,7 +14,7 @@ class Transaction extends Model
         'issued_to',
         'issued_by',
         'transaction_type',
-        'status',
+        'transaction_status',
         'condition'
     ];
 

@@ -22,7 +22,7 @@ class ItemController extends Controller
     public function index()
     {
         // $item = Item::with('addedByUser')->paginate(10);
-        $item = Item::orderBy('name', 'ASC');
+        $item = Item::orderBy('name', 'ASC')->where('condition', 'new')->orwhere('condition', 'operational/working');
         $transaction = Transaction::all();
 
 
@@ -35,17 +35,33 @@ class ItemController extends Controller
             $item = $item->where('name', 'like', '%'. $search .'%');
         }
 
-        if (auth()->user()->role === 'admin') {
-            return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
-        } else if (auth()->user()->role === 'user') {
-            return view('user.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+        return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+
+
+
+    }
+
+    public function indexUnavailable()
+    {
+        // $item = Item::with('addedByUser')->paginate(10);
+        $item = Item::orderBy('name', 'ASC')->where('condition', 'for repair')->orwhere('condition', 'condemn');
+        $transaction = Transaction::all();
+
+        $category = Option::where('category', 'Category')->get();
+        $department = Option::where('category', 'Department')->get();
+
+        $search = request()->get('search');
+
+        if(request()->has('search')) {
+            $item = $item->where('name', 'like', '%'. $search .'%');
         }
+
+        return view('admin.items.indexUnavailable', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+
     }
 
     public function store(Request $request)
     {
-
-        // Item::create($request->all());
 
         $date = Carbon::now();
 
@@ -59,12 +75,13 @@ class ItemController extends Controller
         $additional_details = $request->input('additional_details');
         $status = $request->input('status');
         $condition = $request->input('condition');
-        $added_by = 1;
+        $location = $request->input('location');
+        $added_by = auth()->user()->id;
         $date_acquisition = $request->input('date_acquisition');
         $date_added = $date_today;
 
         $item = Item::firstOrCreate(
-            ['name' => $name, 'category' => $category, 'serial_no' => $serial_no, 'model' => $model, 'description' => $description, 'additional_details' => $additional_details],
+            ['name' => $name, 'category' => $category, 'serial_no' => $serial_no, 'model' => $model, 'description' => $description, 'additional_details' => $additional_details, 'location' => $location],
             ['status' => $status, 'condition' => $condition, 'added_by' => $added_by, 'date_acquisition' => $date_acquisition, 'date_added' => $date_added]
         );
 
@@ -79,10 +96,12 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
 
+        $department = Option::where('category', 'Department')->get();
+
         if (auth()->user()->role === 'admin') {
-            return view('admin.items.edit', compact('item'));
+            return view('admin.items.edit', compact('item', 'department'));
         } else if (auth()->user()->role === 'user') {
-            return view('user.items.edit', compact('item'));
+            return view('user.items.edit', compact('item', 'department'));
         }
     }
 
@@ -106,7 +125,7 @@ class ItemController extends Controller
             'import_file' => [
                 'required',
                 'file',
-                'mimes:xlsx,xls,csv,txt',
+                'mimes:csv,txt',
             ],
         ]);
 

@@ -19,12 +19,14 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
+            
+            'transaction_date' => $this->faker->date,
+
             'item' => Item::factory()->create()->id,
             'issued_to' => User::factory()->create()->id,
             'issued_by' => User::factory()->create()->id,
-            'status' => $this->faker->randomElement(['assigned', 'unassigned']),
+            'transaction_status' => $this->faker->randomElement(['assigned', 'unassigned']),
             'condition' => $this->faker->randomElement(['new', 'operational/working', 'condemn', 'for repair']),
-
         ];
     }
 }

@@ -25,7 +25,7 @@
 
   setTimeout(function() {
       popup.style.display = 'none';
-  }, 1300);
+  }, 2300);
 }
 </script>
 

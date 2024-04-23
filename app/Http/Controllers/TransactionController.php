@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TransactionsExport;
+use Illuminate\Support\Carbon;
 
 class TransactionController extends Controller
 {
@@ -24,23 +25,28 @@ class TransactionController extends Controller
         $user = User::orderBy('first_name', 'ASC')->get();
         $item = Item::orderBy('name', 'ASC')->get();
 
-        $status = Option::where('category', 'status')->orderBy('name', 'ASC')->get();
+        $option = Option::all();
 
         $this->search($transaction);
 
-        $transaction->orderBy('id', 'DESC');
+        $transaction->orderBy('transactions.transaction_date', 'DESC');
 
         return view('admin.transactions.index', ['transaction' => $transaction->paginate(15),
             'user' => $user,
             'item' => $item,
-            'status' => $status,
+            'option' => $option,
             'selectedIssuedTo' => request()->get('issued_to', []),
             'selectedIssuedBy' => request()->get('issued_by', []),
             'selectedStatus' => request()->get('status', []),
             'selectedItem' => request()->get('item', []),
             'selectedCondition' => request()->get('condition', []),
+            'selectedCategory' => request()->get('category', []),
+            'selectedLocation' => request()->get('location', []),
+            'addedDateStart' => request()->get('added_date_start'),
+            'addedDateEnd' => request()->get('added_date_end'),
+            'acquiredDateStart' => request()->get('acquired_date_start'),
+            'acquiredDateEnd' => request()->get('acquired_date_end'),
             'search' => request()->get('search')
-
         ]);
     }
 
@@ -48,7 +54,6 @@ class TransactionController extends Controller
         $user = User::orderBy('first_name', 'ASC')->get();
 
         $item = Item::findOrFail($id);
-
 
         return view('admin.transactions.create', compact('user', 'item' ));
     }
@@ -62,20 +67,19 @@ class TransactionController extends Controller
         $condition = $request->input('condition');
         $status = $request->input('status');
 
-
         $transaction = Transaction::firstOrCreate(
-            ['item' => $item, 'issued_to' => $issued_to, 'issued_by' => $issued_by, 'condition' => $condition, 'status' => $status]
+            ['item' => $item, 'issued_to' => $issued_to, 'issued_by' => $issued_by, 'condition' => $condition, 'transaction_status' => $status, 'created_at' => Carbon::today()->toDateString()]
         );
-
 
         if(!$transaction->wasRecentlyCreated) {
             return redirect()->route('transaction.index')->with('failed', 'Transaction Already Exist');
         }
 
-        $itemSelected = Item::findOrFail($id);
+        $itemSelected = Item::findOrFail($item);
 
         $itemSelected->update([
-            'status' => $request->input('status')
+            'status' => $request->input('status'),
+            'condition' => $request->input('condition')
         ]);
 
         return redirect()->route('transaction.index')->with('success', 'Transaction Added Successfully');
@@ -100,7 +104,6 @@ class TransactionController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $transaction = Transaction::findOrFail($id);
 
         $transaction->update($request->all());
@@ -115,6 +118,8 @@ class TransactionController extends Controller
 
     public function filter ($transaction) {
 
+        $transaction->join('items', 'transactions.item', '=', 'items.id');
+
         if (request()->has('issued_to')) {
             $transaction->whereIn('issued_to', request()->get('issued_to'));
         }
@@ -124,15 +129,33 @@ class TransactionController extends Controller
         }
 
         if (request()->has('status')) {
-            $transaction->whereIn('status', request()->get('status'));
-        }
-
-        if (request()->has('item')) {
-            $transaction->whereIn('item', request()->get('item'));
+            $transaction->whereIn('items.status', request()->get('status'));
         }
 
         if (request()->has('condition')) {
-            $transaction->whereIn('condition', request()->get('condition'));
+            $transaction->whereIn('items.condition', request()->get('condition'));
+        }
+
+        if (request()->has('category')) {
+            $transaction->whereIn('items.category', request()->get('category'));
+        }
+
+        if (request()->has('location')) {
+            $transaction->whereIn('items.category', request()->get('location'));
+        }
+
+        if (request()->has('added_date_start') && request()->has('added_date_end') && request()->input('added_date_start') && request()->input('added_date_end')) {
+            $startDate =  request()->get('added_date_start');
+            $endDate = request()->get('added_date_end');
+
+            $transaction->whereBetween('transactions.transaction_date', [$startDate, $endDate]);
+        }
+
+        if (request()->has('acquired_date_start') && request()->has('acquired_date_end') && request()->input('acquired_date_start') && request()->input('acquired_date_end') ) {
+            $startDate = request()->get('acquired_date_start');
+            $endDate = request()->get('acquired_date_end');
+
+            $transaction->whereBetween('items.date_acquisition', [$startDate, $endDate]);
         }
     }
 
@@ -150,31 +173,33 @@ class TransactionController extends Controller
 
     public function exportCSV(Request $request)
     {
-
+    
         $transaction = DB::table('transactions');
-
+    
+        $transaction->join('users as issued_to_user', 'transactions.issued_to', 'issued_to_user.id');
+        $transaction->join('users as issued_by_user', 'transactions.issued_by', 'issued_by_user.id');
+    
         $this->filter($transaction);
-
-        $transaction = DB::table('transactions')
-        ->select(
-            'transactions.transaction_date',
-            'items.name as item_name',
-            DB::raw("CONCAT(users_issued_to.first_name, ' ', users_issued_to.last_name) as issued_to_name"),
-            DB::raw("CONCAT(users_issued_by.first_name, ' ', users_issued_by.last_name) as issued_by_name"),
-            'transactions.status',
-            'transactions.condition'
-        )
-        ->join('items', 'transactions.item', '=', 'items.id')
-        ->join('users as users_issued_to', 'transactions.issued_to', '=', 'users_issued_to.id')
-        ->join('users as users_issued_by', 'transactions.issued_by', '=', 'users_issued_by.id')
-        ->orderBy('transactions.id', 'DESC');
     
+        $transaction->select([
+            'transaction_date',
+            'name',
+            DB::raw("CONCAT(issued_to_user.first_name, ' ', issued_to_user.last_name) as issued_to"),
+            DB::raw("CONCAT(issued_by_user.first_name, ' ', issued_by_user.last_name) as issued_by"),
+            'transactions.transaction_status',
+            'transactions.condition',
+            'category',
+            'serial_no',
+            'model',
+            'description',
+            'additional_details',
+            'location',
+            'date_acquisition',
+            'date_added',
+        ]);
     
-
-
-        // $this->search($transaction);
-
-        // Download the results as a CSV file
+        $transaction->orderBy('transactions.transaction_date', 'DESC');
+        
         return Excel::download(new TransactionsExport($transaction), 'transactions.csv');
     }
 }

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreign('added_by')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('condition');
+            $table->string('location')->nullable();
             $table->string('date_acquisition');
             $table->string('date_added');
             $table->string('barcode')->nullable();

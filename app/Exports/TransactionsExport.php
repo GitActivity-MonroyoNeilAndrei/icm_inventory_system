@@ -30,6 +30,14 @@ class TransactionsExport implements FromCollection, WithHeadings
             'Issued By',
             'Status',
             'Condition',
+            'Category',
+            'Serial No.',
+            'Model',
+            'Description',
+            'Additional Details',
+            'Location',
+            'Date Acquisition',
+            'Date Added'
         ];
     }
 }

@@ -10,6 +10,7 @@
 
         @include('admin.layouts.items_navigation')
 
+
         @foreach($errors->all() as $error)
 
             <div class="bg-red-700 p-4 text-white">{{ $error }}</div>
@@ -22,12 +23,10 @@
                 <th class="py-2">Name</th>
                 <th class="py-2">Category</th>
                 <th class="py-2">Model</th>
-                <th class="py-2">Status</th>
                 <th class="py-2">Condition</th>
                 <th class="py-2">Location</th>
                 <th class="py-2">Date Acquisition</th>
                 <th class="py-2 w-32">Action</th>
-                <th class="py-2 w-24">Transaction</th>
               </tr>
             </thead>
             <tbody>
@@ -38,33 +37,25 @@
                 <td class="py-2 pl-2">{{ $rs->name }}</td>
                 <td class="py-2 pl-2 ">{{ $rs->category }}</td>
                 <td class="py-2 pl-2">{{ $rs->model }}</td>
+
                 <td class="py-2 pl-2">
 
-                  @if($rs->status == 'assigned')
-                    <span class="px-3 pt-0.5 pb-1 rounded-md text-sm bg-yellow-300/80 text-gray-800 font-semibold">  assigned </span>
-                  @elseif($rs->status == 'unassigned')
-                    <span class="px-3 pt-0.5 pb-1 rounded-md text-sm font-semibold bg-violet-800/80 text-gray-100"> available </span>
-                  @endif
-                
-                </td>
-                <td class="py-2 pl-2 ">
-                  
-                <span class="text-gray-900 text-sm">
+                  <span class="text-gray-900 text-sm">
                     
-                <div class="inline-block size-3 me-1 rounded-full
-                  @if($rs->condition == 'new')
-                    {{ 'bg-green-700/80' }}
-                  @elseif($rs->condition == 'operational/working')
-                    {{ 'bg-blue-700/80' }}
-                  @elseif($rs->condition == 'condemn')
-                    {{ 'bg-red-700/90' }}
-                  @elseif($rs->condition == 'for repair')
-                    {{ 'bg-orange-700/80' }}
-                  @endif
-                "></div>
+                  <div class="inline-block size-3 me-1 rounded-full
+                    @if($rs->condition == 'new')
+                      {{ 'bg-green-700/80' }}
+                    @elseif($rs->condition == 'operational/working')
+                      {{ 'bg-blue-700/80' }}
+                    @elseif($rs->condition == 'condemn')
+                      {{ 'bg-red-700/90' }}
+                    @elseif($rs->condition == 'for repair')
+                      {{ 'bg-orange-700/80' }}
+                    @endif
+                  "></div>
 
-                {{ $rs->condition }}</span>
-              
+                  {{ $rs->condition }}</span>
+
                 </td>
 
                 <td class="py-2 pl-2"> {{ $rs->location }} </td>
@@ -76,14 +67,7 @@
 
                   <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('admin.item.edit', $rs->id) }}">Edit</a>
 
-                </td>
-                <td class="py-3 text-center w-24">
-                  @if($rs->condition == 'condemn')
-                    <p class="inline px-6 py-1 text-sm bg-red-700/90 shadow rounded-md text-slate-50 cursor-not-allowed" href="">Add</p>
-                  @else
-                    <a class="px-6 py-1 text-sm bg-blue-700 hover:bg-blue-600 shadow rounded-md text-slate-50" href="{{ route('transaction.add', $rs->id) }}">Add</a>
-                  @endif
-                </td>
+
               </tr>
 
               @endforeach

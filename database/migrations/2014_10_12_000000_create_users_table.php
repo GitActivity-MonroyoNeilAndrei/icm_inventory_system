@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('position');
             $table->string('department');
-            $table->string('role');
+            $table->string('role')->default('employee');
             $table->string('campus');
             $table->string('status')->default('activated');
             $table->boolean('password_changed')->default(false);
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default('icmadmin1993');
             $table->rememberToken();

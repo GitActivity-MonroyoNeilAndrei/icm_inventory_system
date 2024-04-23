@@ -19,6 +19,24 @@
         text-align: center;
         font-size: 1.5rem;
     }
+
+    a {
+        background-color: red;
+        color: white;
+        text-decoration: none;
+        padding: .2rem .90rem;
+        border-radius: 5px;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, .4);
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+        width: fit-content;   
+    }
+
+    a:hover {
+        background-color: #DD0000;
+    }
+
 </style>
 
 </head>
@@ -28,6 +46,8 @@
     <div id="reader"></div>
     <div id="result"></div>
 </main>
+
+<a href="{{ route('admin.item.index') }}">Back</a>
     
   <script>
 
@@ -41,7 +61,6 @@
         },  // Sets dimensions of scanning box (set relative to reader element width)
         fps: 20, // Frames per second to attempt a scan
     });
-
 
     scanner.render(success, error);
     // Starts scanner

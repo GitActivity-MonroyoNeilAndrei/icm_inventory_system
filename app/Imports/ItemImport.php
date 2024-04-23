@@ -20,6 +20,8 @@ class ItemImport implements ToCollection
     {
         $date_today = now()->format('Y-m-d');
     
+        $expectedColumnCount = 12; 
+
         $firstRowSkipped = false;
     
         foreach ($rows as $row) {
@@ -27,6 +29,11 @@ class ItemImport implements ToCollection
             if (!$firstRowSkipped) {
                 $firstRowSkipped = true;
                 continue;
+            }
+
+            if (count($row) !== $expectedColumnCount) {
+                // Return a prompt that the column count must be 9
+                return redirect()->route('admin.item.index')->with('errorColumnCount', 'CSV Columns must be exactly 9');
             }
     
             Item::create([

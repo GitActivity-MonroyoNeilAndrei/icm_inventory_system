@@ -1,5 +1,5 @@
-<button id="openShowButton{{ $loop->iteration }}" class="px-3 py-1 text-sm bg-green-700 hover:bg-green-600 shadow rounded-md text-slate-50">
-  View
+<button id="openShowButton{{ $loop->iteration }}" class="px-3 py-1 border border-gray-400 text-sm bg-slate-100 hover:bg-slate-200 shadow-md rounded-md text-gray-900 font-semibold">
+  {{ $rs->name }}
 </button>
 
 
@@ -10,51 +10,51 @@
 
     <h1 class="text-3xl font-semibold leading-none">Item Details</h1>
 
-    {!! App\Helpers\Barcode::generateBarcode($rs->id) !!}
+    {!! App\Helpers\Barcode::generateBarcode($rs->Item->id) !!}
 
   <div class="flex gap-16 max-md:flex-col">
     <div>
       <div class="mt-2 w-full">
           <label class="block text-md font-bold text-left leading-6 text-gray-900">Item ID:</label>
-          <h1 class="text-sm text-left pl-5">{{ $rs->id }}</h2>
+          <h1 class="text-sm text-left pl-5">{{ $rs->Item->id }}</h2>
         </div> 
 
         <div class="mt-2 w-full">
           <label class="block text-md font-bold text-left leading-6 text-gray-900">Name:</label>
-          <h1 class="text-sm text-left pl-5">{{ $rs->name }}</h2>
+          <h1 class="text-sm text-left pl-5">{{ $rs->Item->name }}</h2>
         </div>  
 
         <div class="mt-2 w-full">
           <label class="block text-md font-bold text-left leading-6 text-gray-900">Category:</label>
-          <h1 class="text-sm text-left pl-5">{{ $rs->category }}</h2>
+          <h1 class="text-sm text-left pl-5">{{ $rs->Item->category }}</h2>
         </div>  
 
         <div class="mt-2 w-full">
           <label class="block text-md font-bold text-left leading-6 text-gray-900">Serial No.:</label>
-          <h1 class="text-sm text-left pl-5">{{ $rs->serial_no }}</h2>
+          <h1 class="text-sm text-left pl-5">{{ $rs->Item->serial_no }}</h2>
         </div>  
 
         <div class="mt-2 w-full">
           <label class="block text-md font-bold text-left leading-6 text-gray-900">Model:</label>
-          <h1 class="text-sm text-left pl-5">{{ $rs->model }}</h2>
+          <h1 class="text-sm text-left pl-5">{{ $rs->Item->model }}</h2>
         </div>  
 
         <div class="mt-2 w-full">
           <label class="block text-md font-bold text-left leading-6 text-gray-900">Description:</label>
-          <h1 class="text-sm text-left pl-5">{{ $rs->description }}</h2>
+          <h1 class="text-sm text-left pl-5">{{ $rs->Item->description }}</h2>
         </div>  
     </div>
 
     <div>
       <div class="mt-2 w-full">
         <label class="block text-md font-bold text-left leading-6 text-gray-900">Additional Details:</label>
-        <h1 class="text-sm text-left pl-5">{{ $rs->additional_details }}</h2>
+        <h1 class="text-sm text-left pl-5">{{ $rs->Item->additional_details }}</h2>
       </div>  
 
       <div class="mt-2 w-full">
         <label class="block text-md font-bold text-left leading-6 text-gray-900">Status:</label>
-        <h1 class="text-sm text-left pl-5">{{ $rs->status }}</h2>
-      </div> 
+        <h1 class="text-sm text-left pl-5">{{ $rs->Item->status }}</h2>
+      </div>
 
       <div class="mt-2 w-full">
         <label class="block text-md font-bold text-left leading-6 text-gray-900">Location:</label>
@@ -63,40 +63,21 @@
 
       <div class="mt-2 w-full">
         <label class="block text-md font-bold text-left leading-6 text-gray-900">Added by:</label>
-        <h1 class="text-sm text-left pl-5">{{ $rs->addedByUser->first_name . ' ' . $rs->addedByUser->last_name }}</h2>
+        <h1 class="text-sm text-left pl-5">{{ $rs->Item->addedByUser->first_name . ' ' . $rs->Item->addedByUser->last_name }}</h2>
       </div>  
 
       <div class="mt-2 w-full">
         <label class="block text-md font-bold text-left leading-6 text-gray-900">Date Acquisition:</label>
-        <h1 class="text-sm text-left pl-5">{{ $rs->date_acquisition }}</h2>
+        <h1 class="text-sm text-left pl-5">{{ $rs->Item->date_acquisition }}</h2>
       </div>  
 
 
       <div class="mt-2 w-full">
         <label class="block text-md font-bold text-left leading-6 text-gray-900">Date Added:</label>
-        <h1 class="text-sm text-left pl-5">{{ $rs->date_added }}</h2>
+        <h1 class="text-sm text-left pl-5">{{ $rs->Item->date_added }}</h2>
       </div>  
     </div>
   </div>
-
-  <div class="w-full  overflow-x-auto border-gray-300">
-    <table class="w-full">
-      <tbody class="border-b border-gray-500">
-        @foreach($transaction as $txn)
-          @if($txn->item == $rs->id)
-          <tr class="border-b border-gray-500">
-            <td class="py-2"> {{ $txn->transaction_date }} </td>
-            <td class="py-2"> {{ $txn->status }} </td>
-            <td class="py-2"> {{ $txn->IssuedToUser->first_name . ' ' . $txn->IssuedToUser->last_name }} </td>
-          </tr>
-          @endif
-        @endforeach
-
-      </tbody>
-    </table>
-  </div>
-
-
 
 
 

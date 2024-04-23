@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Item>
@@ -25,7 +26,8 @@ class ItemFactory extends Factory
             'additional_details' => $this->faker->paragraph($nbSentences = 2, $variableNbSentences = true),
             'status' => $this->faker->randomElement(['assigned', 'unassigned']),
             'condition' => $this->faker->randomElement(['new', 'operational/working', 'condemn', 'for repair']),
-            'added_by' => \App\Models\User::factory()->create()->id,
+            'location' => $this->faker->word,
+            'added_by' => User::factory()->create()->id,
             'date_acquisition' => $this->faker->date,
             'date_added' => $this->faker->date,
         ];
