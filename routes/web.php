@@ -9,6 +9,7 @@ use App\Http\Controllers\OptionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ReportController;
 use App\Models\Transaction;
 use App\Http\Middleware\TrustHosts;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -89,6 +90,8 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
     Route::get('transaction/add/{id}', [TransactionController::class, 'add'])->name('transaction.add');
 
     Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('transaction.store.txn');
+
+    Route::resource('report', ReportController::class);
 
     Route::get('scan', function() {
        return view('admin.items.scan-item');

@@ -41,6 +41,15 @@
             <th class="py-2">Item</th>
             <th class="py-2">Status</th>
             <th class="py-2">Condition</th>
+            <th class="py-2">Category</th>
+            <th class="py-2">Serial No.</th>
+            <th class="py-2">Model</th>
+            <th class="py-2">Description</th>
+            <th class="py-2">Additional Details</th>
+            <th class="py-2">Location</th>
+            <th class="py-2">Date Acquired</th>
+
+
           </tr>
         </thead>
         <tbody>
@@ -75,6 +84,16 @@
 
                 {{ $rs->condition }}</span>
             </td>
+
+            <td class="py-2 text-center">{{ $rs->Item->category }}</td>
+            <td class="py-2 text-center">{{ $rs->Item->serial_no }}</td>
+            <td class="py-2 text-center">{{ $rs->Item->model }}</td>
+            <td class="py-2" style="min-width: 300px;">{{ $rs->Item->description }}</td>
+            <td class="py-2" style="min-width: 300px;">{{ $rs->Item->additional_details }}</td>
+            <td class="py-2 text-center">{{ $rs->Item->location }}</td>
+            <td class="py-2 text-center">{{ $rs->Item->date_acquisition }}</td>
+
+
           </tr>
 
           @endforeach
