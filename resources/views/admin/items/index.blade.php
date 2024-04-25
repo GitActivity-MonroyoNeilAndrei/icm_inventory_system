@@ -11,10 +11,18 @@
         @include('admin.layouts.items_navigation')
 
         @foreach($errors->all() as $error)
-
             <div class="bg-red-700 p-4 text-white">{{ $error }}</div>
-
         @endforeach
+        
+
+        @if(Session::has('errorColumnCount'))
+          <div class="bg-red-700 p-4 text-white">{{ Session::get('errorColumnCount') }}</div>
+        @elseif(Session::has('errorStatus'))
+          <div class="bg-red-700 p-4 text-white">{{ Session::get('errorStatus') }}</div>
+        @elseif(Session::has('errorCondition'))
+          <div class="bg-red-700 p-4 text-white">{{ Session::get('errorCondition') }}</div>
+        @endif
+
         <div class="w-full  overflow-x-auto border-gray-300">
           <table class="w-full text-sm">
             <thead>

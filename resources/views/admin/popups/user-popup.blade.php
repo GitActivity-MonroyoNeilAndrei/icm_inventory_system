@@ -33,10 +33,8 @@
 <script>
     openPopup("{{ Session::get('emailExist') }}", "warning");
 </script>
-@elseif(Session::has('errorColumnCount'))
-<script>
-    openPopup("{{ Session::get('errorColumnCount') }}", "warning");
-</script>
+
+
 @elseif ($errors->any())
     @foreach($errors->all() as $error)
     <script>  

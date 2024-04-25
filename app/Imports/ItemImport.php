@@ -19,11 +19,35 @@ class ItemImport implements ToCollection
     public function collection(Collection $rows)
     {
         $date_today = now()->format('Y-m-d');
-    
-        $expectedColumnCount = 12; 
+
+        $expectedColumnCount = 11;
+        $allowedStatus = ['assigned', 'unassigned'];
+        $allowedConditions = ['new', 'operational/working', 'for repair', 'condemn'];
 
         $firstRowSkipped = false;
-    
+
+
+
+        foreach ($rows as $row) {
+
+            if (count($row) !== $expectedColumnCount) {
+                // Return a prompt that the column count must be 12
+                return redirect()->route('admin.item.index')->with('errorColumnCount', 'CSV Columns must be exactly 12');
+            }
+
+            // Validate status
+            if (!in_array($row[6], $allowedStatus)) {
+                return redirect()->route('admin.item.index')->with('errorStatus', 'Invalid status value status: ' . $row[6]);
+            }
+
+            // Validate condition
+            if (!in_array($row[7], $allowedConditions)) {
+                return redirect()->route('admin.item.index')->with('errorCondition', 'Invalid condition value condition: ' . $row[7]);
+            }
+        }
+        
+
+
         foreach ($rows as $row) {
             // Skip the first row
             if (!$firstRowSkipped) {
@@ -31,11 +55,7 @@ class ItemImport implements ToCollection
                 continue;
             }
 
-            if (count($row) !== $expectedColumnCount) {
-                // Return a prompt that the column count must be 9
-                return redirect()->route('admin.item.index')->with('errorColumnCount', 'CSV Columns must be exactly 9');
-            }
-    
+
             Item::create([
                 'name' => $row[0],
                 'category' => $row[1],
@@ -51,6 +71,5 @@ class ItemImport implements ToCollection
             ]);
         }
     }
-    
-    
+
 }
