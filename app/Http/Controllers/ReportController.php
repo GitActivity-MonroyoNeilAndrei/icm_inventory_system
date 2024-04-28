@@ -10,7 +10,7 @@ use App\Models\Item;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\TransactionsExport;
+use App\Exports\ReportsExport;
 use Illuminate\Support\Carbon;
 
 class ReportController extends Controller
@@ -117,8 +117,9 @@ class ReportController extends Controller
 
 
     public function filter ($transaction) {
-
         $transaction->join('items', 'transactions.item', '=', 'items.id');
+        $transaction->join('users', 'transactions.issued_to', '=', 'users.id');
+
 
         if (request()->has('issued_to')) {
             $transaction->whereIn('issued_to', request()->get('issued_to'));
@@ -129,7 +130,7 @@ class ReportController extends Controller
         }
 
         if (request()->has('status')) {
-            $transaction->whereIn('items.status', request()->get('status'));
+            $transaction->whereIn('transactions.transaction_status', request()->get('status'));
         }
 
         if (request()->has('condition')) {
@@ -179,8 +180,17 @@ class ReportController extends Controller
         $transaction->join('users as issued_to_user', 'transactions.issued_to', 'issued_to_user.id');
         $transaction->join('users as issued_by_user', 'transactions.issued_by', 'issued_by_user.id');
     
+
         $this->filter($transaction);
-    
+
+
+        $search = request()->get('search');
+
+        if(request()->has('search')) {
+            $transaction->where('users.first_name', 'like', '%' . $search . '%');
+        }
+
+
         $transaction->select([
             'transaction_date',
             'name',
@@ -200,6 +210,6 @@ class ReportController extends Controller
     
         $transaction->orderBy('transactions.transaction_date', 'DESC');
         
-        return Excel::download(new TransactionsExport($transaction), 'transactions.csv');
+        return Excel::download(new ReportsExport($transaction), 'reports.csv');
     }
 }

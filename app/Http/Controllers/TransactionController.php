@@ -119,6 +119,8 @@ class TransactionController extends Controller
     public function filter ($transaction) {
 
         $transaction->join('items', 'transactions.item', '=', 'items.id');
+        $transaction->join('users', 'transactions.issued_to', '=', 'users.id');
+
 
         if (request()->has('issued_to')) {
             $transaction->whereIn('issued_to', request()->get('issued_to'));
@@ -129,7 +131,7 @@ class TransactionController extends Controller
         }
 
         if (request()->has('status')) {
-            $transaction->whereIn('items.status', request()->get('status'));
+            $transaction->whereIn('transactions.transaction_status', request()->get('status'));
         }
 
         if (request()->has('condition')) {
@@ -179,23 +181,24 @@ class TransactionController extends Controller
         $transaction->join('users as issued_to_user', 'transactions.issued_to', 'issued_to_user.id');
         $transaction->join('users as issued_by_user', 'transactions.issued_by', 'issued_by_user.id');
     
+
         $this->filter($transaction);
-    
+
+
+        $search = request()->get('search');
+
+        if(request()->has('search')) {
+            $transaction->where('users.first_name', 'like', '%' . $search . '%');
+        }
+
+
         $transaction->select([
             'transaction_date',
-            'name',
             DB::raw("CONCAT(issued_to_user.first_name, ' ', issued_to_user.last_name) as issued_to"),
             DB::raw("CONCAT(issued_by_user.first_name, ' ', issued_by_user.last_name) as issued_by"),
+            'name',
             'transactions.transaction_status',
             'transactions.condition',
-            'category',
-            'serial_no',
-            'model',
-            'description',
-            'additional_details',
-            'location',
-            'date_acquisition',
-            'date_added',
         ]);
     
         $transaction->orderBy('transactions.transaction_date', 'DESC');

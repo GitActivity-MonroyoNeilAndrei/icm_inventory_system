@@ -6,10 +6,10 @@
 <div id="filter-background" class="fixed top-0 left-0 z-20 w-screen h-screen bg-gray-700/50 hidden"></div>
 
 <div id="myFilter" class="fixed z-30 inset-x-0 top-10 hidden">
-  <form action="{{ route('transaction.index') }}" method="GET" class="flex flex-col items-center bg-white mx-auto rounded-lg shadow-xl pt-4 pb-1 px-8  overflow-y-auto" style="max-height: 80vh; max-width: 40rem;">
+  <form action="{{ route('report.index') }}" method="GET" class="flex flex-col items-center bg-white mx-auto rounded-lg shadow-xl pt-4 pb-1 px-8  overflow-y-auto" style="max-height: 80vh; max-width: 40rem;">
     @csrf
 
-    <h1 class="text-2xl font-semibold leading-none">Filter Transactions</h1>
+    <h1 class="text-2xl font-semibold leading-none">Filter Reports</h1>
 
     <div class="w-full flex max-sm:flex-col sm:mx-auto gap-5 border border-dark">
 

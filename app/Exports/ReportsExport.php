@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Database\Query\Builder;
 
-class TransactionsExport implements FromCollection, WithHeadings
+class ReportsExport implements FromCollection, WithHeadings
 {
     protected $query;
 
@@ -25,11 +25,19 @@ class TransactionsExport implements FromCollection, WithHeadings
     {
         return [
             'Transaction Date',
+            'Item',
             'Issued To',
             'Issued By',
-            'Item',
             'Status',
             'Condition',
+            'Category',
+            'Serial No.',
+            'Model',
+            'Description',
+            'Additional Details',
+            'Location',
+            'Date Acquisition',
+            'Date Added'
         ];
     }
 }

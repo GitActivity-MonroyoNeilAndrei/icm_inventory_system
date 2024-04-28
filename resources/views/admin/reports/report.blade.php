@@ -16,13 +16,13 @@
     <div class="flex justify-between">
 
       <div class="flex items-center gap-3">
-        @include('admin.transactions.search-transaction')
+        @include('admin.reports.search-transaction')
 
-        @include('admin.transactions.filter')
+        @include('admin.reports.filter')
       </div>
 
 
-      @include('admin.transactions.export-csv')
+      @include('admin.reports.export-csv')
     </div>
 
 
