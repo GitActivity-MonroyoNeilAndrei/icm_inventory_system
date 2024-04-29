@@ -16,7 +16,11 @@
     <div>
       <div class="mt-2 w-full">
           <label class="block text-md font-bold text-left leading-6 text-gray-900">Item ID:</label>
-          <h1 class="text-sm text-left pl-5">{{ $rs->id }}</h2>
+          @php
+            $date = \Carbon\Carbon::parse($rs->date_acquisition);
+            $year = substr($date->year, -2);
+          @endphp
+          <h1 class="text-sm text-left pl-5">{{ '0502' . '-' . $year . '-' . $rs->id }}</h2>
         </div> 
 
         <div class="mt-2 w-full">
@@ -71,7 +75,6 @@
         <h1 class="text-sm text-left pl-5">{{ $rs->date_acquisition }}</h2>
       </div>  
 
-
       <div class="mt-2 w-full">
         <label class="block text-md font-bold text-left leading-6 text-gray-900">Date Added:</label>
         <h1 class="text-sm text-left pl-5">{{ $rs->date_added }}</h2>
@@ -79,8 +82,15 @@
     </div>
   </div>
 
-  <div class="w-full  overflow-x-auto border-gray-300">
+  <div class="mt-4 w-full overflow-x-auto border-gray-300">
     <table class="w-full">
+      <thead>
+        <tr>
+          <th>Transaction Date</th>
+          <th>Status</th>
+          <th>Issued To</th>
+        </tr>
+      </thead>
       <tbody class="border-b border-gray-500">
         @foreach($transaction as $txn)
           @if($txn->item == $rs->id)

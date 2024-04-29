@@ -8,7 +8,7 @@
 </div>
 
 <div id="myModal" class="fixed z-30 inset-x-0 top-10 overflow-y-auto">
-    <form action="{{ route('user.update', $user->id) }}" method="post" class="flex items-center justify-center">
+    <form action="{{ route('employee.update', $user->id) }}" method="post" class="flex items-center justify-center">
       @csrf
       @method('PUT')
         <div class="bg-white p-6 rounded-lg shadow-lg w-80">

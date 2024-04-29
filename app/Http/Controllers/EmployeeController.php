@@ -74,11 +74,12 @@ class EmployeeController extends Controller
         $position = $request->input('position');
         $department = $request->input('department');
         $campus = $request->input('campus');
+        $password = 'icmadmin1993';
 
 
         $user = User::firstOrCreate(
             ['first_name' => $first_name, 'last_name' => $last_name, 'role' => 'employee'],
-            ['position' => $position, 'department' => $department, 'campus' => $campus]
+            ['position' => $position, 'department' => $department, 'campus' => $campus, 'password'=>$password]
         );
 
         if (!$user->wasRecentlyCreated) {

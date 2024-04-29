@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('password_changed')->default(false);
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->default('icmadmin1993');
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

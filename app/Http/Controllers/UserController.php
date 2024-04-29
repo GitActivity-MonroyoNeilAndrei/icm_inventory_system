@@ -78,11 +78,12 @@ class UserController extends Controller
         $department = $request->input('department');
         $role = $request->input('role');
         $campus = $request->input('campus');
+        $password = 'icmadmin1993';
 
 
         $user = User::firstOrCreate(
             ['first_name' => $first_name, 'last_name' => $last_name, 'role' => $role],
-            ['email' => $email, 'position' => $position, 'department' => $department, 'campus' => $campus]
+            ['email' => $email, 'position' => $position, 'department' => $department, 'campus' => $campus, 'password'=>$password]
         );
 
         if (!$user->wasRecentlyCreated) {

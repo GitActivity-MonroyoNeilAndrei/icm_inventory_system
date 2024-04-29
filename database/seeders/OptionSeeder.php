@@ -14,7 +14,18 @@ class OptionSeeder extends Seeder
     public function run(): void
     {
         Option::create([
+            'name' => 'IT equipment',
+            'category' => 'Category'
+        ]);
 
+        Option::create([
+            'name' => 'Furniture',
+            'category' => 'Category'
+        ]);
+
+        Option::create([
+            'name' => 'Fixture',
+            'category' => 'Category'
         ]);
     }
 }

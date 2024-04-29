@@ -36,9 +36,6 @@ class ItemController extends Controller
         }
 
         return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
-
-
-
     }
 
     public function indexUnavailable()

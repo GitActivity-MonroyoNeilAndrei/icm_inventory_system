@@ -27,6 +27,6 @@ class UserSeeder extends Seeder
             'password' => 'icmadmin1993'
         ]);
 
-        User::factory(50)->create();
+        // User::factory(50)->create();
     }
 }

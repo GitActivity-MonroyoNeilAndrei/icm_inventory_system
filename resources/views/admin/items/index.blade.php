@@ -49,9 +49,9 @@
                 <td class="py-2 pl-2">
 
                   @if($rs->status == 'assigned')
-                    <span class="px-3 pt-0.5 pb-1 rounded-md text-sm bg-yellow-300/80 text-gray-800 font-semibold">  assigned </span>
+                    <span class="px-3 pt-0.5 pb-1 rounded-md text-sm bg-yellow-300/50 text-gray-800 font-semibold">  assigned </span>
                   @elseif($rs->status == 'unassigned')
-                    <span class="px-3 pt-0.5 pb-1 rounded-md text-sm font-semibold bg-violet-800/80 text-gray-100"> available </span>
+                    <span class="px-3 pt-0.5 pb-1 rounded-md text-sm font-semibold bg-violet-800/50 text-gray-200"> available </span>
                   @endif
                 
                 </td>

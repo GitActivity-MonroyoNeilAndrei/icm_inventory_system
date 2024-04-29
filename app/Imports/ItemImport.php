@@ -30,6 +30,11 @@ class ItemImport implements ToCollection
 
         foreach ($rows as $row) {
 
+            if (!$firstRowSkipped) {
+                $firstRowSkipped = true;
+                continue;
+            }
+
             if (count($row) !== $expectedColumnCount) {
                 // Return a prompt that the column count must be 12
                 return redirect()->route('admin.item.index')->with('errorColumnCount', 'CSV Columns must be exactly 12');
