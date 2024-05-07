@@ -24,8 +24,8 @@ class RedirectIfAuthenticated
                 // Check if the authenticated user is an admin
                 if (Auth::guard($guard)->user()->role === 'admin') {
                     return redirect()->route('admin.dashboard');
-                } else if (Auth::guard($guard)->user()->role === 'user') {
-                    return redirect()->route('user.dashboard');
+                } else if (Auth::guard($guard)->user()->role === 'operational head') {
+                    return redirect()->route('op.dashboard');
                 }
             }
         }

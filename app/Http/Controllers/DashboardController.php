@@ -10,12 +10,12 @@ class DashboardController extends Controller
 
         if(auth()->user()->role === 'admin') {
             return view('admin.dashboard');
-        } else if (auth()->user()->role === 'user') {
-            return view('user.dashboard');
+        } else if (auth()->user()->role === 'operational head') {
+            return view('op.dashboard');
         }
     }
 
-    public function userIndex() {
-        return view('user.dashboard');
+    public function opIndex() {
+        return view('op.dashboard');
     }
 }

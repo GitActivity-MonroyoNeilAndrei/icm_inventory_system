@@ -31,7 +31,9 @@ class ReportController extends Controller
 
         $transaction->orderBy('transactions.transaction_date', 'DESC');
 
-        return view('admin.reports.index', ['transaction' => $transaction->paginate(15),
+        if(auth()->user()->role == 'admin') {
+
+            return view('admin.reports.index', ['transaction' => $transaction->paginate(15),
             'user' => $user,
             'item' => $item,
             'option' => $option,
@@ -48,6 +50,27 @@ class ReportController extends Controller
             'acquiredDateEnd' => request()->get('acquired_date_end'),
             'search' => request()->get('search')
         ]);
+        } else if(auth()->user()->role == 'operational head') {
+
+            return view('op.reports.index', ['transaction' => $transaction->paginate(15),
+            'user' => $user,
+            'item' => $item,
+            'option' => $option,
+            'selectedIssuedTo' => request()->get('issued_to', []),
+            'selectedIssuedBy' => request()->get('issued_by', []),
+            'selectedStatus' => request()->get('status', []),
+            'selectedItem' => request()->get('item', []),
+            'selectedCondition' => request()->get('condition', []),
+            'selectedCategory' => request()->get('category', []),
+            'selectedLocation' => request()->get('location', []),
+            'addedDateStart' => request()->get('added_date_start'),
+            'addedDateEnd' => request()->get('added_date_end'),
+            'acquiredDateStart' => request()->get('acquired_date_start'),
+            'acquiredDateEnd' => request()->get('acquired_date_end'),
+            'search' => request()->get('search')
+        ]);
+        }
+
     }
 
     public function add($id) {
@@ -55,7 +78,11 @@ class ReportController extends Controller
 
         $item = Item::findOrFail($id);
 
-        return view('admin.reports.create', compact('user', 'item' ));
+        if(auth()->user()->role == 'admin') {
+            return view('admin.reports.create', compact('user', 'item' ));
+        } else if (auth()->user()->role == 'operational head') {
+            return view('op.reports.create', compact('user', 'item' ));
+        }
     }
 
     public function storeTxn(Request $request, $id) {
@@ -97,8 +124,8 @@ class ReportController extends Controller
 
         if (auth()->user()->role === 'admin') {
             return view('admin.reports.edit', compact('transaction', 'user', 'item', 'status'));
-        } else if (auth()->user()->role === 'user') {
-            return view('user.reports.edit', compact('transaction', 'user', 'item', 'status'));
+        } else if (auth()->user()->role === 'operational head') {
+            return view('op.reports.edit', compact('transaction', 'user', 'item', 'status'));
         }
     }
 

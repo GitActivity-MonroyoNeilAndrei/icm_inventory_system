@@ -22,20 +22,29 @@ class ItemController extends Controller
     public function index()
     {
         // $item = Item::with('addedByUser')->paginate(10);
-        $item = Item::orderBy('name', 'ASC')->where('condition', 'new')->orwhere('condition', 'operational/working');
-        $transaction = Transaction::all();
 
+        
+        $transaction = Transaction::all();
 
         $category = Option::where('category', 'Category')->get();
         $department = Option::where('category', 'Department')->get();
 
         $search = request()->get('search');
 
-        if(request()->has('search')) {
-            $item = $item->where('name', 'like', '%'. $search .'%');
+        if($search != '') {
+            $item = Item::orderBy('name', 'ASC')->where('name', 'like', '%' . $search . '%');
+        } else {
+            $item = Item::orderBy('name', 'ASC');
         }
 
-        return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+        $item->where('condition', 'new')->orwhere('condition', 'operational/working');
+
+        if(auth()->user()->role == 'admin'){
+            return view('admin.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+
+        } else if (auth()->user()->role == 'operational head') {
+            return view('op.items.index', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+        }
     }
 
     public function indexUnavailable()
@@ -53,7 +62,13 @@ class ItemController extends Controller
             $item = $item->where('name', 'like', '%'. $search .'%');
         }
 
-        return view('admin.items.indexUnavailable', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+        if(auth()->user()->role == 'admin') {
+            return view('admin.items.indexUnavailable', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+
+        } else if (auth()->user()->role == 'operational head') {
+            return view('op.items.indexUnavailable', ['item' => $item->paginate(15), 'category' => $category, 'transaction' => $transaction, 'search' => $search, 'department' => $department]);
+
+        }
 
     }
 
@@ -97,8 +112,8 @@ class ItemController extends Controller
 
         if (auth()->user()->role === 'admin') {
             return view('admin.items.edit', compact('item', 'department'));
-        } else if (auth()->user()->role === 'user') {
-            return view('user.items.edit', compact('item', 'department'));
+        } else if (auth()->user()->role === 'operational head') {
+            return view('op.items.edit', compact('item', 'department'));
         }
     }
 

@@ -1,7 +1,7 @@
-@extends('user.layouts.user_layout')
+@extends('op.layouts.op_layout')
 
 @section('body')
-  @include('user.layouts.navigation')
+  @include('op.layouts.navigation')
 
   <div class="h-screen pt-3 flex flex-no-wrap px-5 sm:ml-52 max-sm:ml-0">
     <div class="container flex flex-col">
@@ -11,7 +11,7 @@
       </div>
       <h1 class="text-2xl text-slate-950 font-bold mb-3">Dashboard</h1>
 
-      <form action="{{ route('user.logout') }}" method="post">
+      <form action="{{ route('op.logout') }}" method="post">
         @csrf
         <button class="bg-red-700 py-0.5 px-3">logout</button>
       </form>

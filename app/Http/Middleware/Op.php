@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class User
+class Op
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class User
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth()->user()->role == 'user' && Auth()->user()->status === 'activated') {
+        if(Auth()->user()->role == 'operational head' && Auth()->user()->status === 'activated') {
             return $next($request);
         } else if (Auth()->user()->status === 'deactivated') {
             return redirect()->route('login')->with('deactivated', 'This account has been Deactivated');

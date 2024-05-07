@@ -161,12 +161,12 @@ class UserController extends Controller
             'password_changed' => 1,
         ]);
 
-        if(auth()->user()->role == 'admin') 
+        if(auth()->user()->role == 'admin')
         {
             return redirect()->route('admin.dashboard')->with('success', 'Logged in successfully');
-        } else if(auth()->user()->role == 'user') 
+        } else if(auth()->user()->role == 'operational head')
         {
-            return redirect()->route('user.dashboard')->with('success', 'Logged in successfully');
+            return redirect()->route('op.dashboard')->with('success', 'Logged in successfully');
         }
     }
 }

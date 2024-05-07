@@ -102,20 +102,26 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 });
 
 
+Route::prefix('op')->middleware(['op', 'auth'])->group(function () {
 
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('op.dashboard');
 
-Route::prefix('user')->middleware(['user', 'auth'])->group(function () {
-
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
-
+    Route::get('item/Unavailable', [ItemController::class, 'indexUnavailable'])->name('op.item.indexUnavailable');
 
     Route::resource('item', ItemController::class)->names([
-        'index' => 'user.item.index',
-        'store' => 'user.item.store',
-        'edit' => 'user.item.edit',
-        'update' => 'user.item.update'
+        'index' => 'op.item.index',
+        'store' => 'op.item.store',
+        'edit' => 'op.item.edit',
+        'update' => 'op.item.update'
     ]);
 
+    Route::resource('transaction', TransactionController::class);
 
-    Route::post('logout', [AuthController::class, 'logout'])->name('user.logout');
+    Route::resource('report', ReportController::class);
+
+    Route::get('transaction/add/{id}', [TransactionController::class, 'add'])->name('transaction.add');
+
+    Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('transaction.store.txn');
+
+    Route::post('logout', [AuthController::class, 'logout'])->name('op.logout');
 });

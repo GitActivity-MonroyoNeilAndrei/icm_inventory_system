@@ -14,7 +14,7 @@ class OptionSeeder extends Seeder
     public function run(): void
     {
         Option::create([
-            'name' => 'IT equipment',
+            'name' => 'IT Equipment',
             'category' => 'Category'
         ]);
 
@@ -26,6 +26,51 @@ class OptionSeeder extends Seeder
         Option::create([
             'name' => 'Fixture',
             'category' => 'Category'
+        ]);
+
+        Option::create([
+            'name' => 'Informatics Manila',
+            'category' => 'Campus'
+        ]);
+
+        Option::create([
+            'name' => 'Informatics Cavite',
+            'category' => 'Campus'
+        ]);
+
+        Option::create([
+            'name' => 'Informatics Baguio',
+            'category' => 'Campus'
+        ]);
+
+        Option::create([
+            'name' => 'Faculty',
+            'category' => 'Department'
+        ]);
+
+        Option::create([
+            'name' => 'Registrar',
+            'category' => 'Department'
+        ]);
+
+        Option::create([
+            'name' => 'Technical Office',
+            'category' => 'Department'
+        ]);
+
+        Option::create([
+            'name' => 'Instructor 1',
+            'category' => 'Position'
+        ]);
+
+        Option::create([
+            'name' => 'Instructor 2',
+            'category' => 'Position'
+        ]);
+
+        Option::create([
+            'name' => 'Instructor 3',
+            'category' => 'Position'
         ]);
     }
 }

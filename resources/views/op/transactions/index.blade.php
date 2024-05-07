@@ -1,8 +1,8 @@
-@extends('admin.layouts.admin_layout')
+@extends('op.layouts.op_layout')
 
 @section('body')
 
-@include('admin.layouts.navigation')
+@include('op.layouts.navigation')
 
 <div class="h-screen pt-3 flex flex-no-wrap px-5 sm:ml-52 max-sm:ml-0">
 

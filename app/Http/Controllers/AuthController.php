@@ -42,7 +42,7 @@ class AuthController extends Controller
 
             if(auth()->user()->role == 'admin') 
             {
-                
+
                 if($changePassword === 0) {
                     return redirect()->route('changePassword', $userId);
                 }
@@ -50,14 +50,14 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard')->with('success', 'Logged in successfully');
             }
 
-            if (auth()->user()->role == 'user') 
+            if (auth()->user()->role == 'operational head')
             {
 
                 if($changePassword === 0) {
                     return redirect()->route('changePassword', $userId);
                 }
 
-                return redirect()->route('user.dashboard')->with('success', 'Logged in successfully');
+                return redirect()->route('op.dashboard')->with('success', 'Logged in successfully');
             }
         }
 
