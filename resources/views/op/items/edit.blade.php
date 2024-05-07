@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin_layout')
+@extends('op.layouts.op_layout')
  
 @section('body')
 
@@ -8,7 +8,7 @@
 </div>
 
 <div id="myModal" class="fixed z-30 inset-x-0 top-10">
-    <form action="{{ route('admin.item.update', $item->id) }}" method="post" class="flex items-center justify-center">
+    <form action="{{ route('op.item.update', $item->id) }}" method="post" class="flex items-center justify-center">
       @csrf
       @method('PUT')
         <div class="bg-white p-6 rounded-lg shadow-lg w-80 overflow-y-auto" style="max-height: 85vh;">
@@ -79,7 +79,7 @@
             </div>
 
             <div class="py-5 flex justify-center gap-4">
-                <a class="px-3 py-1 bg-red-700 rounded  text-slate-200" href="{{ route('admin.item.index') }}">Cancel</a>
+                <a class="px-3 py-1 bg-red-700 rounded  text-slate-200" href="{{ route('op.item.index') }}">Cancel</a>
                 <input type="submit" class="px-3 py-1 bg-blue-700 rounded text-slate-200 cursor-pointer" value="Save">
             </div>
         </div>

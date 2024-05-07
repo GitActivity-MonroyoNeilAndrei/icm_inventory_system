@@ -25,28 +25,43 @@
                         <span class="text-sm ml-2">Items</span>
                     </a>
                 </li> 
-                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('transaction.index') ? 'bg-gray-700' : '' }}">
-                    <a href="{{ route('transaction.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('op.transaction.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('op.transaction.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/transaction-logo.png') }}" alt="">
                         <span class="text-sm ml-2">Transactions</span>
                     </a>
                 </li> 
-                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('report.index') ? 'bg-gray-700' : '' }}">
-                    <a href="{{ route('report.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('op.report.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('op.report.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/reports-logo.png') }}" alt="">
                         <span class="text-sm ml-2">Reports</span>
                     </a>
-                </li> 
+                </li>
+                
+                    
+                
               
 
             </ul>
 
         </div>
-        <div class="border-t border-gray-700 ">
-            <ul class="w-full text-center text-sm text-gray-300 py-1">
-                @Copyright - Informatics
-            </ul>
+
+        <div>
+            <form action="{{ route('op.logout') }}" method="post" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                @csrf
+                <button class="text-sm text-gray-300 hover:bg-red-700 bg-red-800 py-1 m-0 rounded w-full">Logout</button>
+            </form>
+
+            <div class="border-t border-gray-700 ">
+                <ul class="w-full text-center text-sm text-gray-300 py-1">
+                    @Copyright - Informatics
+                </ul>
+            </div>
+
         </div>
+
+
+
     </div>
     <div class="w-64 z-40 absolute bg-gray-800 shadow md:h-full flex-col justify-between sm:hidden transition duration-150 ease-in-out" id="mobile-nav">
         <button aria-label="toggle sidebar" id="openSideBar" class="h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800" onclick="sidebarHandler(true)">

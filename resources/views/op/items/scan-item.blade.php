@@ -47,7 +47,7 @@
     <div id="result"></div>
 </main>
 
-<a href="{{ route('admin.item.index') }}">Back</a>
+<a href="{{ route('op.item.index') }}">Back</a>
     
   <script>
 

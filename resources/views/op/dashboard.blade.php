@@ -11,10 +11,7 @@
       </div>
       <h1 class="text-2xl text-slate-950 font-bold mb-3">Dashboard</h1>
 
-      <form action="{{ route('op.logout') }}" method="post">
-        @csrf
-        <button class="bg-red-700 py-0.5 px-3">logout</button>
-      </form>
+
       
     </div>
   </div>

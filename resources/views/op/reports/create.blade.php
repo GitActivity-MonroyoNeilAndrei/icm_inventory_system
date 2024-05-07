@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin_layout')
+@extends('op.layouts.op_layout')
  
 @section('body')
 
@@ -71,7 +71,7 @@
 
 
     <div class="py-5 flex gap-4">
-      <a class="px-3 py-1 bg-red-700 rounded  text-slate-200" href="{{ route('admin.item.index') }}">Cancel</a>
+      <a class="px-3 py-1 bg-red-700 rounded  text-slate-200" href="{{ route('op.item.index') }}">Cancel</a>
       <input type="submit" class="px-3 py-1 bg-blue-700 rounded text-slate-200 cursor-pointer" value="Add">
     </div>
 

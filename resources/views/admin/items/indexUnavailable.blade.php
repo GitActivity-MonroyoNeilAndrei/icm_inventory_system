@@ -61,7 +61,7 @@
                 <td class="py-2 pl-2"> {{ $rs->location }} </td>
                 <td class="py-2 pl-2">{{ $rs->date_acquisition }}</td>
 
-                <td class="py-2 text-center w-32">
+                <td class="py-2 text-left w-32">
 
                   @include('admin.items.show')
 

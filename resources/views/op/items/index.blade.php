@@ -80,9 +80,9 @@
 
                 <td class="py-2 text-center w-32">
 
-                  @include('admin.items.show')
+                  @include('op.items.show')
 
-                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('admin.item.edit', $rs->id) }}">Edit</a>
+                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50" href="{{ route('op.item.edit', $rs->id) }}">Edit</a>
 
                 </td>
                 <td class="py-3 text-center w-24">
@@ -107,6 +107,6 @@
     </div>
 </div>
 
-@include('admin.popups.user-popup')
+@include('op.popups.user-popup')
 
 @endsection

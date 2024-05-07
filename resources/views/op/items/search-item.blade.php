@@ -1,4 +1,4 @@
-<form action="{{ route('admin.item.index') }}" method="get" class="shadow">   
+<form action="{{ route('op.item.index') }}" method="get" class="shadow">   
     <div class="relative">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">

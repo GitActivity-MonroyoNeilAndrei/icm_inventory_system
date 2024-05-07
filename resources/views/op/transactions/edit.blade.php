@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin_layout')
+@extends('op.layouts.op_layout')
  
 @section('body')
 

@@ -1,8 +1,8 @@
-@extends('admin.layouts.admin_layout')
+@extends('op.layouts.op_layout')
 
 @section('body')
 
-@include('admin.layouts.navigation')
+@include('op.layouts.navigation')
 
 <div class="h-screen pt-3 flex flex-no-wrap px-5 sm:ml-52 max-sm:ml-0">
 
@@ -16,13 +16,13 @@
     <div class="flex justify-between">
 
       <div class="flex items-center gap-3">
-        @include('admin.transactions.search-transaction')
+        @include('op.transactions.search-transaction')
 
-        @include('admin.transactions.filter')
+        @include('op.transactions.filter')
       </div>
 
 
-      @include('admin.transactions.export-csv')
+      @include('op.transactions.export-csv')
     </div>
 
 
@@ -110,6 +110,6 @@
   </div>
 </div>
 
-@include('admin.popups.user-popup')
+@include('op.popups.user-popup')
 
 @endsection

@@ -115,13 +115,23 @@ Route::prefix('op')->middleware(['op', 'auth'])->group(function () {
         'update' => 'op.item.update'
     ]);
 
-    Route::resource('transaction', TransactionController::class);
+    Route::resource('transaction', TransactionController::class)->names([
+        'index' => 'op.transaction.index',
+        'store' => 'op.transaction.store',
+        'edit' => 'op.transaction.edit',
+        'update' => 'op.transaction.update'
+    ]);
 
-    Route::resource('report', ReportController::class);
+    Route::resource('report', ReportController::class)->names([
+        'index' => 'op.report.index',
+        'store' => 'op.report.store',
+        'edit' => 'op.report.edit',
+        'update' => 'op.report.update'
+    ]);
 
-    Route::get('transaction/add/{id}', [TransactionController::class, 'add'])->name('transaction.add');
+    Route::get('transaction/add/{id}', [TransactionController::class, 'add'])->name('op.transaction.add');
 
-    Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('transaction.store.txn');
+    Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('op.transaction.store.txn');
 
     Route::post('logout', [AuthController::class, 'logout'])->name('op.logout');
 });

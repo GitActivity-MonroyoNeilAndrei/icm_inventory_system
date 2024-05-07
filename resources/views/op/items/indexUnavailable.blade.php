@@ -61,12 +61,12 @@
                 <td class="py-2 pl-2"> {{ $rs->location }} </td>
                 <td class="py-2 pl-2">{{ $rs->date_acquisition }}</td>
 
-                <td class="py-2 text-center w-32">
+                <td class="py-2 text-left w-32">
 
-                  @include('admin.items.show')
+                  @include('op.items.show')
 
 
-                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50 {{ $rs->condition == 'condemn' ? 'hidden' : '' }}" href="{{ route('admin.item.edit', $rs->id) }}">Edit</a>
+                  <a class="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 shadow rounded-md text-slate-50 {{ $rs->condition == 'condemn' ? 'hidden' : '' }}" href="{{ route('op.item.edit', $rs->id) }}">Edit</a>
 
 
               </tr>
@@ -84,6 +84,6 @@
     </div>
 </div>
 
-@include('admin.popups.user-popup')
+@include('op.popups.user-popup')
 
 @endsection

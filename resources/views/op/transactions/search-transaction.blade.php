@@ -1,5 +1,5 @@
 
-<form action="{{ route('transaction.index') }}" method="get" class="max-w-lg shadow">
+<form action="{{ route('op.transaction.index') }}" method="get" class="max-w-lg shadow">
     @csrf
     <select name="issued_to[]" multiple hidden>
       @foreach($user as $rs)
