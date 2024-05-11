@@ -10,7 +10,7 @@
 
     <h1 class="text-3xl font-semibold leading-none">Item Details</h1>
 
-    {!! App\Helpers\Barcode::generateBarcode($rs->id) !!}
+    
 
   <div class="flex gap-16 max-md:flex-col">
     <div>
