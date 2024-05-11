@@ -10,6 +10,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ReportController;
+use App\Helpers\Barcode;
 use App\Models\Transaction;
 use App\Http\Middleware\TrustHosts;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -26,7 +27,7 @@ use Illuminate\Auth\Notifications\ResetPassword;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 
@@ -54,6 +55,8 @@ Route::post('user/update-password/{id}', [UserController::class, 'updatePassword
 
 Route::get('item/import', [App\Http\Controllers\ItemController::class, 'index']);
 Route::post('item/import', [App\Http\Controllers\ItemController::class, 'importExcelData']);
+
+Route::get('barcode/{id}', [ItemController::class, 'generateBarcode'])->name('barcode.generate');
 
  
 Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {

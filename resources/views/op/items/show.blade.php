@@ -9,9 +9,7 @@
   <form class="flex flex-col items-center bg-white mx-auto shadow-xl pt-4 px-8 border border-gray-700 pb-6 overflow-y-auto" style="max-height: 85vh; max-width: 30rem;">
 
     <h1 class="text-3xl font-semibold leading-none">Item Details</h1>
-
-
-
+    
   <div class="flex gap-16 max-md:flex-col">
     <div>
       <div class="mt-2 w-full">

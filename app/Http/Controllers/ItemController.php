@@ -11,6 +11,11 @@ use Illuminate\Support\Carbon;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use Illuminate\Validation\Rule;
 
+use BaconQrCode\Encoder\QrCode;
+use BaconQrCode\Common\ErrorCorrectionLevel;
+use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Renderer\ImageRenderer;
+
 use App\Imports\ItemImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -144,6 +149,33 @@ class ItemController extends Controller
         Excel::import(new ItemImport, $request->file('import_file'));
 
         return redirect()->back()->with('status', 'Imported Successfully');
+    }
+
+    public static function generateBarcode($id)
+    {
+    // Create a QR code encoder
+    $qrCode = QrCode::create($id)
+        ->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
+
+    // Create a PNG renderer
+    $renderer = new Png();
+    $renderer->setHeight(400);
+    $renderer->setWidth(400);
+
+    // Create an image renderer
+    $rendererInterface = new ImageRenderer($renderer);
+
+    // Render the QR code to a PNG image
+    $pngData = $rendererInterface->render($qrCode);
+    // $imagePath = $pngData->store('images');
+
+    // Output the QR code PNG data directly (optional)
+    // header('Content-Type: image/png');
+    
+    // echo $pngData;
+
+    return 'tanga ka';
+
     }
 
 
