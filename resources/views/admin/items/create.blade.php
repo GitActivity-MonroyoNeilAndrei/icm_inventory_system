@@ -23,9 +23,9 @@
         <div class="mt-2 w-full">
           <label class="block text-sm font-medium leading-6 text-gray-900">Category:</label>
           <select id="category" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="category" required>
-            @foreach($category as $rs)
-            <option value="{{ $rs->name }}">{{ $rs->name }}</option>
-            @endforeach
+            <option value="IT Equipment">IT Equipment</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Fixture">Fixture</option>
           </select>
         </div>
 

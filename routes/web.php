@@ -97,7 +97,9 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
        return view('admin.items.scan-item');
     })->name('item.scan');
 
-    Route::get('exportCSV', [TransactionController::class, 'exportCSV'])->name('transaction.exportCSV');
+    Route::get('exportTransaction', [TransactionController::class, 'exportCSV'])->name('transaction.exportCSV');
+
+    Route::get('exportReport', [ReportController::class, 'exportCSV'])->name('report.exportCSV');
 
 });
 
@@ -132,6 +134,10 @@ Route::prefix('op')->middleware(['op', 'auth'])->group(function () {
     Route::get('transaction/add/{id}', [TransactionController::class, 'add'])->name('op.transaction.add');
 
     Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('op.transaction.store.txn');
+
+    Route::get('exportTransaction', [TransactionController::class, 'exportCSV'])->name('transaction.exportCSV');
+
+    Route::get('exportReport', [ReportController::class, 'exportCSV'])->name('report.exportCSV');
 
     Route::post('logout', [AuthController::class, 'logout'])->name('op.logout');
 });

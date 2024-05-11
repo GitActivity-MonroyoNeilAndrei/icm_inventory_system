@@ -29,7 +29,7 @@ class TransactionController extends Controller
 
         $this->search($transaction);
 
-        $transaction->orderBy('transactions.transaction_date', 'DESC');
+        $transaction->orderBy('transactions.id', 'DESC');
 
         if(auth()->user()->role == 'admin') {
             return view('admin.transactions.index', ['transaction' => $transaction->paginate(15),
@@ -222,7 +222,7 @@ class TransactionController extends Controller
             'transactions.condition',
         ]);
     
-        $transaction->orderBy('transactions.transaction_date', 'DESC');
+        $transaction->orderBy('transactions.id', 'DESC');
         
         return Excel::download(new TransactionsExport($transaction), 'transactions.csv');
     }

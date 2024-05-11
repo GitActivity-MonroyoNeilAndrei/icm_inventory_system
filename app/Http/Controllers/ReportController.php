@@ -29,7 +29,7 @@ class ReportController extends Controller
 
         $this->search($transaction);
 
-        $transaction->orderBy('transactions.transaction_date', 'DESC');
+        $transaction->orderBy('transactions.id', 'DESC');
 
         if(auth()->user()->role == 'admin') {
 
@@ -234,7 +234,7 @@ class ReportController extends Controller
             'date_acquisition',
             'date_added',
         ]);
-    
+        
         $transaction->orderBy('transactions.transaction_date', 'DESC');
         
         return Excel::download(new ReportsExport($transaction), 'reports.csv');

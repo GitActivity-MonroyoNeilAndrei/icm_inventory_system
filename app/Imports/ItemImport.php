@@ -20,7 +20,7 @@ class ItemImport implements ToCollection
     {
         $date_today = now()->format('Y-m-d');
 
-        $expectedColumnCount = 11;
+        $expectedColumnCount = 9;
         $allowedStatus = ['assigned', 'unassigned'];
         $allowedConditions = ['new', 'operational/working', 'for repair', 'condemn'];
 

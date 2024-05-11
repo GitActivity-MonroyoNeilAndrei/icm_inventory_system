@@ -91,7 +91,7 @@
       <thead>
         <tr>
           <th>Transaction Date</th>
-          <th>Status</th>
+          <th>Type</th>
           <th>Issued To</th>
         </tr>
       </thead>
@@ -100,7 +100,7 @@
           @if($txn->item == $rs->id)
           <tr class="border-b border-gray-500">
             <td class="py-2"> {{ $txn->transaction_date }} </td>
-            <td class="py-2"> {{ $txn->status }} </td>
+            <td class="py-2"> {{ $txn->transaction_status }} </td>
             <td class="py-2"> {{ $txn->IssuedToUser->first_name . ' ' . $txn->IssuedToUser->last_name }} </td>
           </tr>
           @endif
