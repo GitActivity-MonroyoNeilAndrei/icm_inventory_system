@@ -13,8 +13,12 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TransactionsExport;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\Storage;
+use League\Csv\Writer;
+use Picqer\Barcode\BarcodeGeneratorPNG;
+
 class TransactionController extends Controller
-{
+{ 
     public function index() {
 
         // $transaction = Transaction::query()->Paginate(10);
@@ -226,4 +230,5 @@ class TransactionController extends Controller
         
         return Excel::download(new TransactionsExport($transaction), 'transactions.csv');
     }
+    
 }

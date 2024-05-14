@@ -30,7 +30,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-
 Route::get('login', [AuthController::class, 'login']);
     
 Route::post('login', [AuthController::class, 'authenticate'])->name('login');
@@ -100,9 +99,9 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
        return view('admin.items.scan-item');
     })->name('item.scan');
 
-    Route::get('exportTransaction', [TransactionController::class, 'exportCSV'])->name('transaction.exportCSV');
+    Route::get('exportTransaction', [TransactionController::class, 'exportCSV'])->name('admin.transaction.exportCSV');
 
-    Route::get('exportReport', [ReportController::class, 'exportCSV'])->name('report.exportCSV');
+    Route::get('exportReport', [ReportController::class, 'exportCSV'])->name('admin.report.exportCSV');
 
 });
 
@@ -138,9 +137,9 @@ Route::prefix('op')->middleware(['op', 'auth'])->group(function () {
 
     Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('op.transaction.store.txn');
 
-    Route::get('exportTransaction', [TransactionController::class, 'exportCSV'])->name('transaction.exportCSV');
+    Route::get('exportTransaction', [TransactionController::class, 'exportCSV'])->name('op.transaction.exportCSV');
 
-    Route::get('exportReport', [ReportController::class, 'exportCSV'])->name('report.exportCSV');
+    Route::get('exportReport', [ReportController::class, 'exportCSV'])->name('op.report.exportCSV');
 
     Route::post('logout', [AuthController::class, 'logout'])->name('op.logout');
 });

@@ -1,4 +1,4 @@
-<form action="{{ route('transaction.exportCSV') }}" method="GET">
+<form action="{{ route('admin.transaction.exportCSV') }}" method="GET">
     @csrf
 
     <input name="search" type="text" value="{{ $search }}" hidden>
