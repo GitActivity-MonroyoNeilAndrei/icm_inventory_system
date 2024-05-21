@@ -83,6 +83,8 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 
     Route::resource('option', OptionController::class);
 
+    Route::post('option/changeStatus/{id}', [OptionController::class, 'isEnable'])->name('admin.option.changeStatus');
+
     Route::post('settings/{id}', [UserController::class, 'updateProfile'])->name('admin.settings.update-profile');
 
     Route::post('settings/update-password/{id}', [UserController::class, 'updateProfilePassword'])->name('admin.updateProfilePassword');
@@ -102,6 +104,8 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
     Route::get('exportTransaction', [TransactionController::class, 'exportCSV'])->name('admin.transaction.exportCSV');
 
     Route::get('exportReport', [ReportController::class, 'exportCSV'])->name('admin.report.exportCSV');
+
+    Route::get('exportItem', [ItemController::class, 'exportCSV'])->name('admin.item.export');
 
 });
 

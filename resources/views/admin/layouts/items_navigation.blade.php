@@ -17,6 +17,7 @@
 
   @include('admin.items.import-excel')
 </div>
-<div class="flex justify-end mt-1">
+<div class="flex justify-between mt-1 items-center">
   @include('admin.items.search-item')
+  @include('admin.items.export')
 </div>

@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use Illuminate\Validation\Rule;
+use App\Exports\ItemsExport;
 
 use BaconQrCode\Encoder\QrCode;
 use BaconQrCode\Common\ErrorCorrectionLevel;
@@ -178,5 +179,9 @@ class ItemController extends Controller
 
     }
 
+    public function exportCSV()
+    {
+        return Excel::download(new ItemsExport, 'items.xlsx');
+    }
 
 }

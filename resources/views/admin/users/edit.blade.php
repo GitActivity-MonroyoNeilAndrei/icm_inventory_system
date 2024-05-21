@@ -52,7 +52,7 @@
             <label class="block text-sm font-medium leading-6 text-gray-900">Role:</label>
                 <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="role" required>
                     <option value="admin" {{ 'admin' == $user->role ? 'selected' : '' }} > admin </option>
-                    <option value="employee" {{ 'operational head' == $user->role ? 'selected' : '' }} > operational head </option>
+                    <option value="operational head" {{ 'operational head' == $user->role ? 'selected' : '' }} > operational head </option>
 
                 </select>
             </div>

@@ -11,6 +11,7 @@ class Option extends Model
 
     protected $fillable = [
         'name',
-        'category'
+        'category',
+        'status'
     ];
 }

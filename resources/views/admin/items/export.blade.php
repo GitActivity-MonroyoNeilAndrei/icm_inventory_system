@@ -1,0 +1,1 @@
+<a class="bg-blue-800 text-gray-100 px-4 py-1 rounded hover:cursor-pointer hover:bg-blue-700" href="{{ route('admin.item.export') }}">export</a>

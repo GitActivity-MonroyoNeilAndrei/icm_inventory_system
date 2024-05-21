@@ -8,7 +8,7 @@
 
         @if($campus->count() > 0)
           @foreach($campus as $rs)
-          <div class="flex justify-between py-1 px-4 bg-gray-800/20 hover:bg-gray-800/25 border-b border-gray-600">
+          <div class="flex justify-between py-1 px-4 border-b border-gray-600 {{ $rs->status == 'disable' ? 'bg-gray-100/20' : 'bg-gray-800/20 hover:bg-gray-800/25' }}">
             <h1>{{ $rs->name }}</h1>
             @include('admin.settings.options.destroy')
           </div>
@@ -24,7 +24,7 @@
 
         @if($position->count() > 0)
           @foreach($position as $rs)
-          <div class="flex justify-between py-1 px-4 bg-gray-800/20 hover:bg-gray-800/25 border-b border-gray-600">
+          <div class="flex justify-between py-1 px-4 border-b border-gray-600 {{ $rs->status == 'disable' ? 'bg-gray-100/20' : 'bg-gray-800/20 hover:bg-gray-800/25' }}">
             <h1>{{ $rs->name }}</h1>
             @include('admin.settings.options.destroy')
           </div>
@@ -40,7 +40,7 @@
 
         @if($department->count() > 0)
           @foreach($department as $rs)
-          <div class="flex justify-between py-1 px-4 bg-gray-800/20 hover:bg-gray-800/25 border-b border-gray-600">
+          <div class="flex justify-between py-1 px-4 border-b border-gray-600 {{ $rs->status == 'disable' ? 'bg-gray-100/20' : 'bg-gray-800/20 hover:bg-gray-800/25' }}">
             <h1>{{ $rs->name }}</h1>
             @include('admin.settings.options.destroy')
           </div>
