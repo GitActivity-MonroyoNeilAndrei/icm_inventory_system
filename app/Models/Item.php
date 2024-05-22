@@ -18,6 +18,7 @@ class Item extends Model
         'additional_details',
         'added_by',
         'status',
+        'holder',
         'condition',
         'location',
         'date_acquisition',

@@ -27,7 +27,7 @@
     
       @if($item->status == 'assigned')
         @foreach($user as $rs)
-          @if($rs->id == $item->id)
+          @if($rs->id == $item->holder)
           <option value="{{ $rs->id }}">{{ $rs->first_name . ' ' . $rs->last_name }}</option>
           @endif
         @endforeach

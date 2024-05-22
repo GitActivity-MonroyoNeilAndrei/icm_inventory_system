@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('additional_details')->nullable();
             $table->string('status');
+            $table->unsignedBigInteger('holder')->nullable();
 
             $table->unsignedBigInteger('added_by');
 

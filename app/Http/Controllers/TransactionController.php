@@ -103,9 +103,17 @@ class TransactionController extends Controller
         $itemSelected = Item::findOrFail($item);
 
         $itemSelected->update([
-            'status' => $request->input('status'),
-            'condition' => $request->input('condition')
+            'status' => $status,
+            'condition' => $condition
         ]);
+
+        // Item table - update the holder value
+
+        if ($status  == 'assigned') {
+            $itemSelected->update(['holder' => $issued_to]);
+        } else if ($status == 'unassigned') {
+            $itemSelected->update(['holder' => null]);
+        }
 
         return redirect()->route('transaction.index')->with('success', 'Transaction Added Successfully');
     }
