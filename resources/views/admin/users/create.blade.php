@@ -30,7 +30,9 @@
       <label class="block text-sm font-medium leading-6 text-gray-900">Position:</label>
       <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="position" required>
         @foreach($position as $rs)
-          <option value="{{ $rs->name }}">{{ $rs->name }}</option>
+          @if($rs->status == 'enable')
+            <option value="{{ $rs->name }}">{{ $rs->name }}</option>
+          @endif
         @endforeach
       </select>
     </div>
@@ -39,7 +41,9 @@
       <label class="block text-sm font-medium leading-6 text-gray-900">Department:</label>
       <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="department" required>
         @foreach($department as $rs)
-          <option value="{{ $rs->name }}">{{ $rs->name }}</option>
+          @if($rs->status == 'enable')
+            <option value="{{ $rs->name }}">{{ $rs->name }}</option>
+          @endif
         @endforeach
       </select>
     </div>
@@ -56,7 +60,9 @@
       <label class="block text-sm font-medium leading-6 text-gray-900">Campus:</label>
       <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="campus" required>
         @foreach($campus as $rs)
-          <option value="{{ $rs->name }}">{{ $rs->name }}</option>
+          @if($rs->status == 'enable')
+            <option value="{{ $rs->name }}">{{ $rs->name }}</option>
+          @endif
         @endforeach
       </select>
     </div>

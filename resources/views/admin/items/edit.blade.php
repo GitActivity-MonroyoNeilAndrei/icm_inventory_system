@@ -72,7 +72,9 @@
               <label class="block text-sm font-medium leading-6 text-gray-900">Location:</label>
               <select id="small" class="block w-full px-2 py-2 shadow text-sm border border-gray-600 rounded hover:ring-gray-600 hover:ring-1 focus:ring-indigo-700 focus:ring-offset-2" name="location" required>
                 @foreach($department as $rs)
-                  <option value="{{ $rs->name }}" {{ $rs->name == $item->location ? 'selected' : '' }}>{{ $rs->name }}</option>
+                  @if($rs->status == 'enable')
+                    <option value="{{ $rs->name }}" {{ $rs->name == $item->location ? 'selected' : '' }}>{{ $rs->name }}</option>
+                  @endif
                 @endforeach
               </select>
             </div>
