@@ -1,7 +1,7 @@
 
 
 
-<button id="openImportButton" class="bg-slate-600 hover:bg-slate-700 px-5 py-1 mb-3 rounded text-slate-200 shadow">
+<button id="openImportButton" class="bg-slate-600 hover:bg-slate-700 px-5 py-1 mb-3 rounded text-slate-200 shadow max-sm:text-xs">
   Import Excel
 </button>
 

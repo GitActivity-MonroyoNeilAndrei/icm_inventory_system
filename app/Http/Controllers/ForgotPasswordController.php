@@ -18,7 +18,7 @@ class ForgotPasswordController extends Controller
 
     public function forgetPasswordPost(Request $request) {
         $request->validate([
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email|exists:users,email',
         ]);
 
         $token = Str::random(64);
@@ -34,7 +34,7 @@ class ForgotPasswordController extends Controller
             $message->subject('Reset Password');
         });
 
-        return redirect()->route('forget.password')->with('success', 'we have send an email');
+        return redirect()->route('forget.password')->with('success', 'We have sent an email.');
     }
 
     public function resetPassword($token) {
@@ -43,33 +43,27 @@ class ForgotPasswordController extends Controller
 
     public function resetPasswordPost(Request $request) {
         $request->validate([
-            'email' => 'exists:users',
-            'password' => 'min:6|confirmed',
+            'email' => 'required|exists:users,email',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $updatePassword = DB::table('password_reset_tokens')->where([
             'email' => $request->email,
             'token' => $request->token
-
         ])->first();
 
-        if(!$updatePassword) {
-            return redirect()->route('reset.password')->with('error', "Invalid");
+        if (!$updatePassword) {
+            return redirect()->route('reset.password', ['token' => $request->token])->with('error', "Invalid token!");
         }
 
-        // User::where('email', $request->email)->update(['password', $request->password]);
-
         $user = User::where('email', $request->email)->first();
-
         if ($user) {
-            $user->password = $request->password;
-
+            $user->password = bcrypt($request->password);
             $user->save();
         }
 
         DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
 
-        return redirect()->route('login')->with('success', 'Password Reset Successfull');
+        return redirect()->route('login')->with('success', 'Password reset successfully.');
     }
-
 }

@@ -181,7 +181,7 @@ class ItemController extends Controller
 
     public function exportCSV()
     {
-        return Excel::download(new ItemsExport, 'items.xlsx');
+        return Excel::download(new ItemsExport, 'informatics list of items.xlsx');
     }
 
 }

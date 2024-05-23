@@ -83,7 +83,7 @@ class ItemsExport implements FromCollection, WithHeadings, WithMapping, WithDraw
             $drawing->setDescription('Barcode');
             $drawing->setPath($this->barcodes[$item->id]);
             $drawing->setHeight(50);
-            $drawing->setCoordinates('N' . ($index + 3)); // Adjust if you have headings
+            $drawing->setCoordinates('N' . ($index + 2)); // Adjust if you have headings
             $drawings[] = $drawing;
         }
 

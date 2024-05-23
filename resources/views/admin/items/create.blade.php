@@ -1,4 +1,4 @@
-<button id="openCreateButton" class="bg-blue-600 hover:bg-blue-500 px-5 py-1 mb-3 rounded text-slate-200 shadow">
+<button id="openCreateButton" class="bg-blue-600 hover:bg-blue-500 px-5 py-1 mb-3 rounded text-slate-200 shadow max-sm:text-xs">
   Add Item
 </button>
 
