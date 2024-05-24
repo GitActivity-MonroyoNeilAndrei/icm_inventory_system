@@ -30,7 +30,7 @@ class ItemController extends Controller
         // $item = Item::with('addedByUser')->paginate(10);
 
         
-        $transaction = Transaction::all();
+        $transaction = Transaction::orderBy('id', 'DESC')->get();
 
         $category = Option::where('category', 'Category')->get();
         $department = Option::where('category', 'Department')->get();
@@ -57,7 +57,8 @@ class ItemController extends Controller
     {
         // $item = Item::with('addedByUser')->paginate(10);
         $item = Item::orderBy('name', 'ASC')->where('condition', 'for repair')->orwhere('condition', 'condemn');
-        $transaction = Transaction::all();
+        $transaction = Transaction::all()->orderBy('id', 'DESC')->get();
+
 
         $category = Option::where('category', 'Category')->get();
         $department = Option::where('category', 'Department')->get();
@@ -98,6 +99,10 @@ class ItemController extends Controller
         $date_acquisition = $request->input('date_acquisition');
         $date_added = $date_today;
 
+        if(Item::where('serial_no', $serial_no)->exists()) {
+            return redirect()->back()->with('failed', 'Serial Number Already Exist!');
+        }
+
         $item = Item::firstOrCreate(
             ['name' => $name, 'category' => $category, 'serial_no' => $serial_no, 'model' => $model, 'description' => $description, 'additional_details' => $additional_details, 'location' => $location],
             ['status' => $status, 'condition' => $condition, 'added_by' => $added_by, 'date_acquisition' => $date_acquisition, 'date_added' => $date_added]
@@ -115,11 +120,13 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
 
         $department = Option::where('category', 'Department')->get();
+        $category = Option::where('category', 'Category')->get();
+
 
         if (auth()->user()->role === 'admin') {
-            return view('admin.items.edit', compact('item', 'department'));
+            return view('admin.items.edit', compact('item', 'department', 'category'));
         } else if (auth()->user()->role === 'operational head') {
-            return view('op.items.edit', compact('item', 'department'));
+            return view('op.items.edit', compact('item', 'department', 'category'));
         }
     }
 

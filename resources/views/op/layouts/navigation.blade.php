@@ -6,7 +6,7 @@
         <div class="px-0">
             <div class="w-full flex items-center justify-center mt-3 gap-3">
               <!-- 144 30 -->
-              <img class="inline-block w-9" src="" alt="">
+              <img class="inline-block w-9" src="{{ asset('images/informatics-logo.png') }}" alt="">
               <div class="text-end">
                 <h3 class="block font-semibold leading-4 text-xl text-slate-200">Informatics </h3>
                 <h3 class="block font-semibold text-slate-200">College</h3>
