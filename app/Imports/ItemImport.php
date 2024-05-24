@@ -20,11 +20,13 @@ class ItemImport implements ToCollection
     {
         $date_today = now()->format('Y-m-d');
 
-        $expectedColumnCount = 9;
+        $expectedColumnCount = 10;
         $allowedStatus = ['assigned', 'unassigned'];
         $allowedConditions = ['new', 'operational/working', 'for repair', 'condemn'];
 
         $firstRowSkipped = false;
+        $firstRowSkipped2 = false;
+
 
 
 
@@ -49,14 +51,15 @@ class ItemImport implements ToCollection
             if (!in_array($row[7], $allowedConditions)) {
                 return redirect()->route('admin.item.index')->with('errorCondition', 'Invalid condition value condition: ' . $row[7]);
             }
+
         }
         
 
 
         foreach ($rows as $row) {
             // Skip the first row
-            if (!$firstRowSkipped) {
-                $firstRowSkipped = true;
+            if (!$firstRowSkipped2) {
+                $firstRowSkipped2 = true;
                 continue;
             }
 
@@ -70,11 +73,12 @@ class ItemImport implements ToCollection
                 'additional_details' => $row[5],
                 'status' => $row[6],
                 'condition' => $row[7],
-                'date_acquisition' => $row[8],
+                'location' => $row[8],
+                'date_acquisition' => $row[9],
                 'date_added' => $date_today,
                 'added_by' => auth()->user()->id,
             ]);
         }
     }
 
-}
+}   

@@ -24,7 +24,8 @@
       <h5 class="pl-6"><span class="font-bold text-gray-900">Column 6:</span> Additional Details</h5>
       <h5 class="pl-6"><span class="font-bold text-gray-900">Column 7:</span> Status</h5>
       <h5 class="pl-6"><span class="font-bold text-gray-900">Column 8:</span> Condition</h5>
-      <h5 class="pl-6"><span class="font-bold text-gray-900">Column 9:</span> Date Acquisition</h5>
+      <h5 class="pl-6"><span class="font-bold text-gray-900">Column 9:</span> Location</h5>
+      <h5 class="pl-6"><span class="font-bold text-gray-900">Column 10:</span> Date Acquisition</h5>
     </div>
 
     <div class="mt-6 w-full border border-red">
