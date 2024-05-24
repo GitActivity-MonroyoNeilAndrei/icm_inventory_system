@@ -75,6 +75,15 @@ class TransactionController extends Controller
 
     }
 
+    public function scannedItem($id) {
+        $user = User::orderBy('first_name', 'ASC')->get();
+        $transaction = Transaction::all();
+
+        $item = Item::findOrFail($id);
+
+        return view('admin.items.scanned-item', compact('user', 'item', 'transaction' ));
+    }
+
     public function add($id) {
         $user = User::orderBy('first_name', 'ASC')->get();
 

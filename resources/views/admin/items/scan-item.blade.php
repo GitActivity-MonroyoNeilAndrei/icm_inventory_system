@@ -67,7 +67,7 @@
 
     function success(result) {
 
-        const url = `{{ route('transaction.add', ['id' => ':id']) }}`.replace(':id', encodeURIComponent(result));
+        const url = `{{ route('transaction.scannedItem', ['id' => ':id']) }}`.replace(':id', encodeURIComponent(result));
     
         // Redirect the user to the constructed URL
         window.location.href = url;

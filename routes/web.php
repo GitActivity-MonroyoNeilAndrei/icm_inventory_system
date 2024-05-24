@@ -93,6 +93,9 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 
     Route::get('transaction/add/{id}', [TransactionController::class, 'add'])->name('transaction.add');
 
+    Route::get('transaction/scannedItem/{id}', [TransactionController::class, 'scannedItem'])->name('transaction.scannedItem');
+
+
     Route::post('transaction/storeTxn/{id}', [TransactionController::class, 'storeTxn'])->name('transaction.store.txn');
 
     Route::resource('report', ReportController::class);
