@@ -101,7 +101,7 @@
               </div>
             </div>
             <ul class="mt-12">
-                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.dashboard') ? 'bg-gray-700' : '' }}">
+            <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.dashboard') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('admin.dashboard') }}" class="px-10 py-3  w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                       <img class="w-4" src="{{ asset('images/dashboard-logo.png') }}" alt="">
                       <span class="text-sm ml-2">Dashboard</span>
@@ -110,16 +110,22 @@
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('user.index') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('user.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/users-logo.png') }}" alt="">
+                        <span class="text-sm ml-2">Users</span>
+                    </a>
+                </li>
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('employee.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('employee.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                        <img class="w-4" src="{{ asset('images/employees-logo.png') }}" alt="">
                         <span class="text-sm ml-2">Employees</span>
                     </a>
                 </li>
-                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.item.index') ? 'bg-gray-700' : '' }}">
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('admin.item.index') || Route::is('admin.item.indexUnavailable') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('admin.item.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/list-logo.png') }}" alt="">
                         <span class="text-sm ml-2">Items</span>
                     </a>
                 </li>
-              
+
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('transaction.index') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('transaction.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/transaction-logo.png') }}" alt="">
@@ -127,7 +133,13 @@
                     </a>
                 </li>
 
-
+                <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('report.index') ? 'bg-gray-700' : '' }}">
+                    <a href="{{ route('report.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
+                        <img class="w-4" src="{{ asset('images/reports-logo.png') }}" alt="">
+                        <span class="text-sm ml-2">Reports</span>
+                    </a>
+                </li>
+              
                 <li class="flex w-full justify-between text-gray-400 hover:text-gray-100 cursor-pointer items-center hover:bg-gray-700 {{ Route::is('option.index') ? 'bg-gray-700' : '' }}">
                     <a href="{{ route('option.index') }}" class="px-10 py-3 w-full flex items-center focus:outline-none focus:ring-1 focus:ring-indigo-700">
                         <img class="w-4" src="{{ asset('images/settings-logo.png') }}" alt="">
